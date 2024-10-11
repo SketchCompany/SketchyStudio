@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- custom resources -->
+    <title>Ein kostenloser Website Baukasten zum erstellen von Websites | Sketchy Studio</title>
+    <link rel="stylesheet" href="/res?f=css/body.css">
+    <link rel="stylesheet" href="/res?f=css/start.css">
+</head>
+<body>
+    <main>
+        <div class="hero">
+            <div class="title">
+                <h1 class="headline">Welcome to Sketchy Studio</h1>
+                <h3 class="subtitle">first sketch, then build!</h3>
+            </div>
+            <div class="right">
+                <i class="logo bi bi-boxes"></i>
+                <div class="comment">
+                    <i class="bi bi-quote"></i>
+                    <p>Ein super einfach aufgebautes Tool um Webseiten zu bauen! Jeder kann es benutzen! Jeder zahlt goarnix! Der Einstieg ist sehr leicht und es macht einfach Spaß!</p>
+                    <div class="user">
+                        <div>
+                            <img src="/res?f=img/user_logo.png" alt="">
+                            <p>Sketchy</p>
+                        </div>
+                        <p class="stars"><span class="bi bi-star-fill"></span> <span class="bi bi-star-fill"></span> <span class="bi bi-star-fill"></span> <span class="bi bi-star-fill"></span> <span class="bi bi-star-fill"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="start">
+            <button class="marked" onclick="openSite('/login?redirect=http://localhost:5002/studio')"><span class="bi bi-arrow-right-circle"></span> Los Geht's</button>
+        </div>
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.30/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/JoLDx-tBIBnH9mnp/scene.splinecode"></spline-viewer>
+
+        <div class="about">
+            <h2>Sketchy Studio</h2>
+        </div>
+    </main>
+
+    <script src="/res?f=app.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

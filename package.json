@@ -1,10 +1,10 @@
 {
   "name": "sketchystudio",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "studio.mjs",
   "scripts": {
-    "test": "nodemon studio.js",
-    "start": "node studio.js"
+    "test": "nodemon studio.mjs",
+    "start": "node studio.mjs"
   },
   "type": "module",
   "keywords": [],

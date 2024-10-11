@@ -1,0 +1,92 @@
+.hero{
+    display: flex;
+    gap: 75px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 100px;
+    padding: 25px;
+}
+.hero .title .headline{
+    font-size: 55px;
+    font-style: italic;
+    margin-left: -10px;
+}
+.hero .title .subtitle{
+    font-family: "Open Sans", sans-serif;
+    font-weight: normal;
+    margin-top: 0;
+}
+.hero .right{
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+    align-items: center;
+    position: relative;
+    margin-right: 4vw;
+}
+.hero .right .logo{
+    font-size: 60px;
+    position: absolute;
+    top: -40px;
+}
+.hero .right .comment{
+    background-color: var(--b0);
+    border-radius: 12px;
+    padding: 20px 20px 15px 20px;
+    box-shadow: 0 2px 4px var(--bx0);
+}
+.hero .right .comment .user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding: 0 10px 0 10px;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.hero .right .comment .user div{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.hero .right .comment .user .stars{    
+    color: goldenrod;
+    min-width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+.hero .right .comment .user img{
+    width: 40px;
+    height: 40px;
+    border-radius: 360px;
+    object-fit: cover;
+}
+.hero .right .comment .user p{
+    margin: 0;
+}
+.hero .right .comment p{
+    margin: 0;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.hero .right .comment .bi-quote{
+    font-size: 45px;
+    line-height: 0;
+}
+spline-viewer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.start{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.start button{
+
+}
