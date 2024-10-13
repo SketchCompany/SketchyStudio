@@ -17,7 +17,7 @@ $(document).ready(function(){
         <div class="coffcanvas" style="display: none;">
             <div class="content">
                 <div class="top">
-                    <h2>Menu</h2>
+                    <h2><span class="bi bi-boxes"></span> Menu</h2>
                     <span class="bi bi-x-lg" onclick="toggleOffcanvas()"></span>
                 </div>
                 <div class="options">
@@ -33,8 +33,50 @@ $(document).ready(function(){
         </div>
     `)
 
+    if(isMobile()){
+
+        const style = $(document.createElement("style"))
+        style.html(`
+            body{
+                font-size: 15px;
+            }
+            .coffcanvas .content{
+                width: 100%;
+                border: none;
+                padding: 25px;
+            }
+            .coffcanvas .content .top .bi-x-lg{
+                font-size: 25px;
+            }
+            h1{
+                font-size: 35px;
+                line-height: 40px;
+                margin-bottom: 10px;
+            }
+            h2{
+                font-size: 30px;
+                line-height: 30px;
+                margin-bottom: 10px;
+            }
+            h3{
+                font-size: 25px;
+                line-height: 25px;
+            }
+            .hero{
+                padding: 0 0;
+                margin-bottom: 50px;
+            }
+            .hero .right{
+                margin-right: 0;
+                width: 100%;
+            }
+        `)
+
+        $("head").append(style)
+    }
+
     window.addEventListener("scroll", () => {
-        if(window.scrollY > 160){
+        if(window.scrollY > 150){
             $("header").addClass("header-scrolling")
         }
         else if($("header").hasClass("header-scrolling")){

@@ -1,21 +1,22 @@
 .hero{
     display: flex;
     gap: 75px;
-    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 100px;
-    margin-bottom: 200px;
+    margin-top: 7vw;
+    margin-bottom: 300px;
     padding: 25px;
 }
 .hero .title .headline{
     font-size: 55px;
     font-style: italic;
     margin-left: -10px;
+    line-height: 55px;
 }
 .hero .title .subtitle{
     font-family: "Open Sans", sans-serif;
     font-weight: normal;
     margin-top: 0;
+    font-size: 25px;
 }
 .hero .right{
     display: flex;
@@ -77,35 +78,41 @@
     font-size: 45px;
     line-height: 0;
 }
-spline-viewer{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
 .hero .title button{
     margin-top: 20px;
     margin-bottom: 25px;
     padding: 10px 25px;
     font-size: 20px;
     box-shadow: 0 2px 4px var(--bx0);
+    transition: all 250ms;
+}
+@media (max-width: 1030px) {
+    .hero{
+        flex-wrap: wrap;
+    }
+    .hero .right{
+        max-width: 100%;
+    }
+}
+spline-viewer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 .infos{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 10px;
+    display: flex;
+    gap: 50px;
 }
-.about{
+.about, .why{
     padding: 25px;
     background-color: var(--b0);
     border-radius: 6px;
     box-shadow: 0 2px 4px var(--bx0);
-    grid-column: 1 1;
+    flex: 0.5;
 }
-.why{
-    padding: 25px;
-    background-color: var(--b0);
-    border-radius: 6px;
-    box-shadow: 0 2px 4px var(--bx0);
-    grid-column: 2 2;
+@media (max-width: 935px) {
+    .infos{
+        flex-direction: column;
+    }
 }
