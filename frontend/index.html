@@ -23,6 +23,9 @@
             <div class="title">
                 <h1 class="headline">Welcome to Sketchy Studio</h1>
                 <h3 class="subtitle">first sketch, then build!</h3>
+                <button class="marked" onclick="openSite('/login?redirect=http://localhost:5002/studio')">
+                    <span class="bi bi-play-circle"></span> Jetzt starten
+                </button>
             </div>
             <div class="right">
                 <i class="logo bi bi-boxes"></i>
@@ -39,20 +42,34 @@
                 </div>
             </div>
         </div>
-        <div class="start">
-            <button class="marked" onclick="openSite('/login?redirect=http://localhost:5002/studio')"><span class="bi bi-arrow-right-circle"></span> Los Geht's</button>
-        </div>
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.30/build/spline-viewer.js"></script>
         <spline-viewer url="https://prod.spline.design/JoLDx-tBIBnH9mnp/scene.splinecode"></spline-viewer>
 
-        <div class="about">
-            <h2>Sketchy Studio</h2>
+        <div class="infos">
+            <div class="about">
+                <h1>Was wir machen</h1>
+                <p>
+                    Sketchy Studio ist ein kostenloser Website Builder und Editor der jedem kostenlos zur verfügung stehen soll.
+                    Er soll einfach zu bedienen sein und Hobby Entwicklern, Klein Unternehmern und einfach jeden der kein Geld für seine 
+                    Website ausgeben will, eine Möglichkeit bieten sich im Internet breit zu machen.
+                </p>
+            </div>
+            <div class="why">
+                <h1>Was wir machen</h1>
+                <p>
+                    Sketchy Studio ist ein kostenloser Website Builder und Editor der jedem kostenlos zur verfügung stehen soll.
+                    Er soll einfach zu bedienen sein und Hobby Entwicklern, Klein Unternehmern und einfach jeden der kein Geld für seine 
+                    Website ausgeben will, eine Möglichkeit bieten sich im Internet breit zu machen.
+                </p>
+            </div>
         </div>
     </main>
 
     <script src="/res?f=app.js"></script>
     <script>
-
+        setTimeout(() => {
+            console.log($($("spline-viewer").get(0).shadowRoot).find("#logo").remove())
+        }, 1000)
     </script>
 </body>
 </html>

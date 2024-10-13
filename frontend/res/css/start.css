@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 100px;
+    margin-bottom: 200px;
     padding: 25px;
 }
 .hero .title .headline{
@@ -82,11 +83,29 @@ spline-viewer{
     left: 0;
     z-index: -1;
 }
-.start{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.hero .title button{
+    margin-top: 20px;
+    margin-bottom: 25px;
+    padding: 10px 25px;
+    font-size: 20px;
+    box-shadow: 0 2px 4px var(--bx0);
 }
-.start button{
-
+.infos{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+}
+.about{
+    padding: 25px;
+    background-color: var(--b0);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px var(--bx0);
+    grid-column: 1 1;
+}
+.why{
+    padding: 25px;
+    background-color: var(--b0);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px var(--bx0);
+    grid-column: 2 2;
 }

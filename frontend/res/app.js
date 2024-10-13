@@ -34,7 +34,7 @@ $(document).ready(function(){
     `)
 
     window.addEventListener("scroll", () => {
-        if(window.scrollY > 150){
+        if(window.scrollY > 160){
             $("header").addClass("header-scrolling")
         }
         else if($("header").hasClass("header-scrolling")){

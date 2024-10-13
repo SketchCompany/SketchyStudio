@@ -39,7 +39,6 @@ body{
     font-family: "Open Sans", sans-serif;
     padding: 0;
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
     background-image: linear-gradient(340deg, var(--b1) 60%, var(--b2));
     background-attachment: fixed;
     text-shadow: 4px 4px 4px var(--bx0);
@@ -53,6 +52,7 @@ main > *{
 }
 h1, h2, h3, h4, h5, h6{
     font-family: "Outfit", system-ui;
+    margin-top: 10px;
 }
 h1{
     font-size: 50px;
@@ -111,7 +111,7 @@ button{
     border-radius: 4px;
     border: 1px solid var(--darkgray);
     color: var(--f0);
-    padding: 5px 15px;
+    padding: 10px 15px;
     width: fit-content;
     transition: all 100ms;
     font-size: inherit;
@@ -129,15 +129,17 @@ button:disabled{
 }
 button.marked{
     border-color: springgreen;
-    background-color: rgb(0, 200, 115);
-    padding: 10px 25px;
-    font-size: 20px;
-    box-shadow: 0 2px 4px var(--bx0);
+    background-color: rgb(0, 170, 100);
+    border-radius: 24px;
 }
 button.marked:hover{
-    border-color: rgb(255, 0, 220);
-    background-color: rgb(195, 0, 170);
+    border-color: rgb(0, 25, 255);
+    background-color: rgb(60, 0, 220);
 }
+/* button.marked:hover{
+    border-color: rgb(255, 0, 220);
+    background-color: rgb(175, 0, 150);
+} */
 /* button.marked{
     border-color: rgb(0,150,255);
     background-color: rgb(0,75,255);
