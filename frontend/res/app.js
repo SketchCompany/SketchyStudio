@@ -34,11 +34,17 @@ $(document).ready(function(){
     `)
 
     if(isMobile()){
-
         const style = $(document.createElement("style"))
         style.html(`
             body{
                 font-size: 15px;
+            }
+            main{
+                padding: 2rem 10px;
+                
+            }
+            .hero .title{
+                padding: 0 5px;
             }
             .coffcanvas .content{
                 width: 100%;
@@ -170,6 +176,21 @@ function get(url, raw, log){
         else cb(result.data)   
     })
 }
+function authGet(url, raw){
+    return new Promise(async cb => {
+        const token = localStorage.getItem("token")
+        if(!token){
+            console.error("authGet: no token found")
+            console.error("authGet: cannot make a request without a token")
+            cb("error: no token found")
+        }
+        const response = await fetch(url, {headers: {"Authorization": "Bearer" + token}})
+        const result = await response.json()
+        console.log("get:", url, "response:", result)
+        if(raw) cb(result)
+        else cb(result.data)   
+    })
+}
 // fetch information from or to the backend with the POST method and return the data of the response
 /**
  * fetch information from or to the backend with the POST method and return the data of the response
@@ -202,6 +223,21 @@ function send(url, data, raw, log){
         const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}})
         const result = await response.json()
         if(log) console.log("send:", url, "response:", result)
+        if(raw) cb(result)
+        else cb(result.data)
+    })
+}
+function authSend(url, data, raw){
+    return new Promise(async cb => {
+        const token = localStorage.getItem("token")
+        if(!token){
+            console.error("authSend: no token found")
+            console.error("authSend: cannot make a request without a token")
+            cb("error: no token found")
+        }
+        const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}})
+        const result = await response.json()
+        console.log("send:", url, "response:", result)
         if(raw) cb(result)
         else cb(result.data)
     })

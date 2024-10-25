@@ -16,6 +16,11 @@
     <title>Ein kostenloser Website Baukasten zum erstellen von Websites | Sketchy Studio</title>
     <link rel="stylesheet" href="/res?f=css/body.css">
     <link rel="stylesheet" href="/res?f=css/start.css">
+
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://prod.spline.design">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://prod.spline.design">
 </head>
 <body>
     <main>
@@ -42,24 +47,29 @@
                 </div>
             </div>
         </div>
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.30/build/spline-viewer.js"></script>
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
         <spline-viewer url="https://prod.spline.design/JoLDx-tBIBnH9mnp/scene.splinecode"></spline-viewer>
 
         <div class="infos">
-            <div class="about">
-                <h1>Was ist Sketchy Studio</h1>
-                <p>
-                    Sketchy Studio ist ein kostenloser Website Builder und Editor der jedem kostenlos zur verfügung stehen soll.
-                    Er soll einfach zu bedienen sein und Hobby Entwicklern, Klein Unternehmern und einfach jeden der kein Geld für seine 
-                    Website ausgeben will, eine Möglichkeit bieten sich im Internet breit zu machen.
-                </p>
-            </div>
-            <div class="why">
+            <div class="why" style="flex: 0.55;">
                 <h1>Was wir machen</h1>
                 <p>
-                    Sketchy Studio ist ein kostenloser Website Builder und Editor der jedem kostenlos zur verfügung stehen soll.
-                    Er soll einfach zu bedienen sein und Hobby Entwicklern, Klein Unternehmern und einfach jeden der kein Geld für seine 
-                    Website ausgeben will, eine Möglichkeit bieten sich im Internet breit zu machen.
+                    Ich arbeite eigentlich alleine an diesem Projekt als Hobby Entwickler der Webentwicklung liebt.
+                    Ich wollte als kleines Kind schon eine eigene Website bauen und dachte es gäbe bestimmt schon einen weg ohne programmieren zu müssen.
+                    Den gabs natürlich auch, doch nur mit der Vorraussetzung das ich dafür Geld bezahlen muss. Somit habe ich dann den Gedanken einer 
+                    eigenen Website vorerst verworfen. Bis zu dem Zeitpunkt an dem ich Programmieren gelernt habe und mir dann gedacht habe: "Warum nicht 
+                    selber einen Website Baukasten programmieren?". Und somit entstand Sketchy Studio.
+                    Bei der Sketch Company mache ich auch Indie-Spiele und habe dafür schon meinen eigenen Launcher, 
+                    den <a href="https://sketchy-games.sketch-company.de/launcher">Sketchy Games Launcher</a> entwickelt, 
+                    den ihr auf meiner Website <a href="https://sketchy-games.sketch-company.de">Sketchy Games</a> herunterladen könnt.
+                </p>
+            </div>
+            <div class="about" style="flex: 0.45;">
+                <h1>Was ist Sketchy Studio</h1>
+                <p>
+                    Sketchy Studio ist ein kostenloser Website Builder und Editor mit einem Baukastensystem der jedem kostenlos zur verfügung steht.
+                    Er ist einfach zu bedienen und bietet Hobby Entwickler, Klein Unternehmer und einfach jeden der kein Geld für seine 
+                    Website ausgeben will, eine Möglichkeit sich im Internet breit zu machen.
                 </p>
             </div>
         </div>
@@ -68,7 +78,7 @@
     <script src="/res?f=app.js"></script>
     <script>
         setTimeout(() => {
-            console.log($($("spline-viewer").get(0).shadowRoot).find("#logo").remove())
+           $($("spline-viewer").get(0).shadowRoot).find("#logo").remove()
         }, 1000)
     </script>
 </body>

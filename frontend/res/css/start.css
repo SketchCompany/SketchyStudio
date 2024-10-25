@@ -9,7 +9,7 @@
 .hero .title .headline{
     font-size: 55px;
     font-style: italic;
-    margin-left: -10px;
+    margin-left: -5px;
     line-height: 55px;
 }
 .hero .title .subtitle{
@@ -36,6 +36,7 @@
     border-radius: 12px;
     padding: 20px 20px 15px 20px;
     box-shadow: 0 2px 4px var(--bx0);
+    text-align: justify;
 }
 .hero .right .comment .user{
     display: flex;
@@ -102,17 +103,23 @@ spline-viewer{
 }
 .infos{
     display: flex;
-    gap: 50px;
+    gap: 25px;
 }
 .about, .why{
-    padding: 25px;
+    padding: 40px;
     background-color: var(--b0);
     border-radius: 6px;
     box-shadow: 0 2px 4px var(--bx0);
     flex: 0.5;
 }
+.about p, .why p{
+    text-align: justify;
+}
 @media (max-width: 935px) {
     .infos{
         flex-direction: column;
+    }
+    .about, .why{
+        padding: 20px 25px;
     }
 }
