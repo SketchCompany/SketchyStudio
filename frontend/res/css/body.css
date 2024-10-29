@@ -79,6 +79,7 @@ a:hover{
 }
 p{
     line-height: 25px;
+    margin-top: 0;
 }
 img{
     width: 100%;

@@ -18,6 +18,7 @@ export default class Functions{
         return new Promise(async cb => {
             try{
                 const PROJECT_DIR = PROFILES_DIR + args.id + "/" + args.name + "/"
+                console.log("createProject: PROJECT_DIR:", PROJECT_DIR)
                 if(!exists(PROJECT_DIR)){
                     await createDirectory(PROJECT_DIR)
                 }
@@ -88,6 +89,7 @@ export default class Functions{
                     </html>
                 `)
 
+                console.log("createProject: created files: index.css, index.html")
                 cb()
             }
             catch(err){
@@ -109,23 +111,23 @@ export default class Functions{
             }
         })
     }
-}
 
-function connectUser(id){
-    return new Promise(async cb => {
-        try{
-            const userData = await send("https://api.sketch-company.de/u/find", {id})
-
-            if(!userData.studio) userData.studio = "[]"
-
-            console.log("connectUser: connected", userData.user)
-            cb(userData)
-        }
-        catch(err){
-            console.error("connectUser:", err)
-            cb(err)
-        }
-    })
+    userData = (identifier) => {
+        return new Promise(async cb => {
+            try{
+                const userData = await send("https://api.sketch-company.de/u/find", identifier)
+    
+                if(!userData.studio) userData.studio = "[]"
+    
+                console.log("userData: for", identifier, userData)
+                cb(userData)
+            }
+            catch(err){
+                console.error("userData:", err)
+                cb(err)
+            }
+        })
+    }
 }
 /**
  * fetches a specific ```url``` with the ```GET``` method and returns the data of the response
@@ -136,6 +138,7 @@ function get(url){
     return new Promise(async cb => {
         fetch(url).then((response) => response.json()).then((result) => {
             console.log("get:", url, "response:", result)
+            if(result.status != 1) console.warn("get: warning:", result)
             cb(result.data)
         }).catch((err) => {
             console.error("get:", url, "error:", err)
@@ -153,6 +156,7 @@ function send(url, data){
     return new Promise(async cb => {
         fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}}).then((response) => response.json()).then((result) => {
             console.log("send:", url, "response:")
+            if(result.status != 1) console.warn("send: warning:", result)
             console.dir(result, {depth: null})
             cb(result.data)
         }).catch((err) => {

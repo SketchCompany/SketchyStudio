@@ -19,22 +19,36 @@
 </head>
 <body>
     <main>
-        <h1>In The Studio</h1>
-
+        <h1>Im Studio</h1>
+        <p>Hier kannst du neue Projekte erstellen und an deinen anderen weiterarbeiten.</p>
         <div class="projects">
-            <h2>Projects</h2>
+            <h2>Projekte</h2>
             <div class="projectsContainer">
                 <div class="create">
-                    <i class="bi bi-plus"></i>
-                </div>
-                <div class="project">
-                    <iframe src="http://localhost:5002" frameborder="0" scrolling="no"></iframe>
+                    <div>
+                        <i class="bi bi-plus"></i>
+                    </div>
+                    <p>Neues Projekt</p>
                 </div>
             </div>
-            <h3>Other Projects</h3>
-            <div class="otherProjectsContainer"></div>
+            <!-- <h3>Andere Projekte</h3>
+            <div class="otherProjectsContainer"></div> -->
         </div>
     </main>
     <script src="/res?f=app.js"></script>
+    <script>
+        $(".create").click(createProject)
+
+        async function createProject(){
+            const res = await authSend("/b/create", {name})
+        }
+
+        const timeout = setTimeout(() => {
+            $("#5001").remove()
+        }, 1000)
+        $("#5001").on("load", function(){
+            clearTimeout(timeout)
+        })
+    </script>
 </body>
 </html>

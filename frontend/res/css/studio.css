@@ -1,47 +1,44 @@
 .projects{
-
+    padding: 10px 0;
 }
 .projects .projectsContainer{
-    padding: 20px 10px;
+    padding: 20px 0;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-.projects .projectsContainer .project{
+.projects .projectsContainer .project, .projects .projectsContainer .create{
+    padding: 15px;
+    border-radius: 6px;
+    transition: 100ms;
+}
+.projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
     background-color: var(--b0);
     border-radius: 6px;
     height: 150px;
     width: 300px;
     box-shadow: 0 2px 4px var(--bx0);
-    transition: 100ms;
     overflow: hidden;
-}
-.projects .projectsContainer .project:hover{
-    cursor: pointer;
 }
 .projects .projectsContainer .project iframe{
     pointer-events: none;
     user-select: none;
 }
-.projects .projectsContainer .create{
-    background-color: var(--b0);
+.projects .projectsContainer .project p, .projects .projectsContainer .create p{
+    padding: 5px;
+    margin-bottom: 0;
+}
+.projects .projectsContainer .create div{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    border-radius: 6px;
-    height: 150px;
-    width: 300px;
-    box-shadow: 0 2px 4px var(--bx0);
     font-size: 35px;
-    transition: 100ms;
-    overflow: hidden;
+    color: rgb(175,175,175);
 }
-.projects .projectsContainer .create:hover{
-    background-color: var(--b1);
+.projects .projectsContainer .create:hover, .projects .projectsContainer .project:hover{
+    background-color: var(--b3);
     transform: scale(1.02);
     cursor: pointer;
-}
-.projects .otherPojectsContainer{
-
+    box-shadow: 0 2px 4px var(--bx0);
 }

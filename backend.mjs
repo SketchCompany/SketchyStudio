@@ -20,12 +20,12 @@ const authenticate = (req, res, next) => {
             return res.sendStatus(401)
         }
         
-        jwt.verify(token, SECRET_KEY, (err, userOrEmail) => {
+        jwt.verify(token, SECRET_KEY, (err, id) => {
             if(err){
                 console.error("authenticate:", err)
                 return res.sendStatus(403)
             }
-            req.user = userOrEmail
+            req.id = id
             next()
         })
     }
@@ -40,7 +40,8 @@ router.post("/login", async (req, res) => {
         const {userOrEmail, password} = req.body
 
         if(await studio.login(userOrEmail, password).correct){
-            const token = jwt.sign({userOrEmail}, SECRET_KEY, {expiresIn: "1m"})
+            const id = await studio.userData({userOrEmail})
+            const token = jwt.sign({id}, SECRET_KEY, {expiresIn: "1m"})
             res.status(200).json({
                 status: 1,
                 data: token
@@ -64,7 +65,8 @@ router.post("/login", async (req, res) => {
 
 router.get("/create", authenticate, async (req, res) => {
     try{
-        const {userData, args} = req.body
+        const args = req.body
+        const userData = studio.userData({id: req.id})
         await studio.createProject(userData, args)
         res.status(200).json({ 
             status: 1,
