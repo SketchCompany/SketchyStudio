@@ -370,7 +370,7 @@ async function notify(title, message, type, duration, hideFromCenter){
  */
 function createDialog(title, message, elements, width, height){
     const id = title + "-dialog"
-    const headline = $(document.createElement("uh1")).html(title)
+    const headline = $(document.createElement("h2")).html(title)
     const description = $(document.createElement("p")).html(message)
     const content = $(document.createElement("div")).addClass("content").append([headline, description, elements])
     if(width) content.css("width", width + "px")

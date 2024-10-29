@@ -92,7 +92,7 @@ button{
     border-radius: 4px;
     border: 1px solid var(--darkgray);
     color: var(--f0);
-    padding: 10px 15px;
+    padding: 5px 15px;
     width: fit-content;
     transition: all 100ms;
     font-size: inherit;
@@ -195,6 +195,7 @@ input, select{
     width: 250px;
     transition: all 100ms;
     outline: 2px solid transparent;
+    font-size: inherit;
 }
 input:hover, input:not(input[type="checkbox"]):focus, select:hover, select:focus{
     border-color: var(--gray);
@@ -222,7 +223,6 @@ input::-webkit-inner-spin-button {
 }
 .input-viewable{
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 .input-viewable input{
@@ -234,6 +234,49 @@ input::-webkit-inner-spin-button {
     border-radius: 0 4px 4px 0;
     flex: 0.1;
     width: 50px;
+}
+.input-validator.invalid .input-viewable button{
+    border-color: red;
+}
+.input-validator{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.input-validator p{
+    margin: 0;
+    margin-left: 1px;
+    font-size: 12px;
+    line-height: 20px;
+    position: absolute;
+    top: -18px;
+    left: 0;
+    z-index: 5;
+}
+.input-validator.invalid p{
+    color: red;
+}
+.input-validator.invalid input{
+    border-color: red;
+}
+.input-validator.invalid input:focus{
+    outline-color: rgb(255, 50, 50);
+}
+.input-validator.valid .input-viewable button{
+    border-color: springgreen;
+}
+.input-validator{
+    display: flex;
+    flex-direction: column;
+}
+.input-validator.valid p{
+    color: springgreen;
+}
+.input-validator.valid input{
+    border-color: springgreen;
+}
+.input-validator.valid input:focus{
+    outline-color: rgb(50, 255, 150);
 }
 header{
     padding: 20px var(--padding);
@@ -309,8 +352,7 @@ header .right .bi-list:hover{
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 6px var(--bx0);
-    min-width: 500px;
-    -webkit-app-region: no-drag;
+    min-width: 400px;
     animation: fadein 1s;
     display: flex;
     align-items: center;
@@ -326,10 +368,14 @@ header .right .bi-list:hover{
 .dialog .content .crow p{
     margin: 0;
 }
-.dialog .content uh1{
-    font-size: 55px;
+.dialog .content h2{
+    border: 1px solid white;
+    border-width: 0 0 1px 0;
+    padding: 5px 0 15px 0;
+    width: 100%;
+    margin: 0;
 }
-.dialog .content uh1, .dialog .content p{
+.dialog .content h2, .dialog .content p{
     text-align: center;
     margin-bottom: 0;
 }
