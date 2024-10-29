@@ -1,0 +1,47 @@
+.projects{
+
+}
+.projects .projectsContainer{
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+.projects .projectsContainer .project{
+    background-color: var(--b0);
+    border-radius: 6px;
+    height: 150px;
+    width: 300px;
+    box-shadow: 0 2px 4px var(--bx0);
+    transition: 100ms;
+    overflow: hidden;
+}
+.projects .projectsContainer .project:hover{
+    cursor: pointer;
+}
+.projects .projectsContainer .project iframe{
+    pointer-events: none;
+    user-select: none;
+}
+.projects .projectsContainer .create{
+    background-color: var(--b0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 6px;
+    height: 150px;
+    width: 300px;
+    box-shadow: 0 2px 4px var(--bx0);
+    font-size: 35px;
+    transition: 100ms;
+    overflow: hidden;
+}
+.projects .projectsContainer .create:hover{
+    background-color: var(--b1);
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.projects .otherPojectsContainer{
+
+}
