@@ -67,11 +67,20 @@ router.post("/create", authenticate, async (req, res) => {
     try{
         const args = req.body
         const userData = studio.userData({id: req.id})
-        await studio.createProject(userData, args)
-        res.status(200).json({ 
-            status: 1,
-            data: "successfully created project " + req.query.name
-        })
+        const response = await studio.createProject(userData, args)
+
+        if(!response){
+            res.status(200).json({ 
+                status: 1,
+                data: "successfully created project"
+            })
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response.data
+            })
+        }
     }
     catch(err){
         console.error(req.path, err)

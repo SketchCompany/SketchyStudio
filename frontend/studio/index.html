@@ -130,9 +130,14 @@
                 if($("#nameInvalid").hasClass("valid") && $("#descriptionInvalid").hasClass("valid")){
                     const name = $("#projectName")
                     const description = $("#projectDescription")
-                    const res = await authSend("/b/create", {name, description})
-                    console.log(res)
-                    removeDialog(dialog)
+                    const res = await authSend("/b/create", {name, description}, true)
+                    if(res.status == 1){
+                        console.log(res)
+                        removeDialog(dialog)
+                    }
+                    else{
+                        notify("Fehlgeschlagen", res.data)
+                    }
                 }
                 else notify("Achtung", "Der angegebene Projektname oder die Projektbeschreibung ist nicht erlaubt. Ändere sie um ein neues Projekt erstellen zu können.", "warning", 10000)
             })

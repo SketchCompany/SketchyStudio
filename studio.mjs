@@ -18,6 +18,23 @@ export default class Functions{
         return new Promise(async cb => {
             try{
                 const PROJECT_DIR = PROFILES_DIR + args.id + "/" + args.name + "/"
+
+                const studioData = JSON.parse(userData.studio)
+                for (let i = 0; i < studioData.length; i++) {
+                    const element = studioData[i];
+                    if(element.name == args.name){
+                        cb({
+                            status: 0, 
+                            data: "Ein Projekt mit diesem Namen existiert bereits."
+                        })
+                    }
+                }
+                const newStudioProjectData = {
+                    name: args.name,
+                    description: args.description,
+                    project_dir: PROJECT_DIR
+                }
+
                 console.log("createProject: PROJECT_DIR:", PROJECT_DIR)
                 if(!exists(PROJECT_DIR)){
                     await createDirectory(PROJECT_DIR)
@@ -90,11 +107,19 @@ export default class Functions{
                 `)
 
                 console.log("createProject: created files: index.css, index.html")
+
+                studioData.push(newStudioProjectData)
+                userData.studio = JSON.stringify(studioData)
+                const updateResponse = await send("https://api.sketch-company.de/u/update", userData)
+                console.log("createProject: updated account", updateResponse)
                 cb()
             }
             catch(err){
                 console.error("createProject:", err)
-                cb(err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
             }
         })
     }
@@ -112,14 +137,14 @@ export default class Functions{
         })
     }
 
-    userData = (identifier) => {
+    userData = (identifierObject) => {
         return new Promise(async cb => {
             try{
-                const userData = await send("https://api.sketch-company.de/u/find", identifier)
+                const userData = await send("https://api.sketch-company.de/u/find", identifierObject)
     
                 if(!userData.studio) userData.studio = "[]"
     
-                console.log("userData: for", identifier, userData)
+                console.log("userData: for", identifierObject, userData)
                 cb(userData)
             }
             catch(err){
