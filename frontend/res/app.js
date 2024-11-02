@@ -125,14 +125,14 @@ function toggleOffcanvas(){
     }
     else{
         $(".coffcanvas").css("display", "none")
-        ennableScroll()
+        enableScroll()
     }
 }
 function disableScroll(){
     $("body").css("overflow", "hidden")
     $("body").css("height", "100%")
 }
-function ennableScroll(){
+function enableScroll(){
     $("body").css("overflow", "auto")
     $("body").css("height", "fit-content")
 }
@@ -255,7 +255,7 @@ function authSend(url, data, raw){
 async function notifyCb(title, message, type, cb, hideFromCenter){
     let duration = (1000 * 7) + 1000
     const element = $(document.createElement("div")).addClass("notification").addClass(type)
-    element.append($(document.createElement("div")).append($(document.createElement("h3")).html(title)).append($(document.createElement("p")).html(message)))
+    element.append($(document.createElement("div")).append($(document.createElement("h2")).html(title)).append($(document.createElement("p")).html(message)))
     element.append($(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(async function(){
         element.remove()
     }))
@@ -283,7 +283,7 @@ async function notifyCb(title, message, type, cb, hideFromCenter){
 async function notify(title, message, type, hideFromCenter){
     let duration = (1000 * 7) + 1000
     const element = $(document.createElement("div")).addClass("notification").addClass(type)
-    element.append($(document.createElement("div")).append($(document.createElement("h3")).html(title)).append($(document.createElement("p")).html(message)))
+    element.append($(document.createElement("div")).append($(document.createElement("h2")).html(title)).append($(document.createElement("p")).html(message)))
     element.append($(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(async function(){
         element.remove()
     }))
@@ -313,7 +313,7 @@ async function notifyCb(title, message, type, duration, cb, hideFromCenter){
     let finalDuration = (1000 * 7) + 1000
     if(duration) finalDuration = duration
     const element = $(document.createElement("div")).addClass("notification").addClass(type)
-    element.append($(document.createElement("div")).append($(document.createElement("h3")).html(title)).append($(document.createElement("p")).html(message)))
+    element.append($(document.createElement("div")).append($(document.createElement("h2")).html(title)).append($(document.createElement("p")).html(message)))
     element.append($(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(async function(){
         element.remove()
     }))
@@ -344,7 +344,7 @@ async function notify(title, message, type, duration, hideFromCenter){
     let finalDuration = (1000 * 7) + 1000
     if(duration) finalDuration = duration
     const element = $(document.createElement("div")).addClass("notification").addClass(type)
-    element.append($(document.createElement("div")).append($(document.createElement("h3")).html(title)).append($(document.createElement("p")).html(message)))
+    element.append($(document.createElement("div")).append($(document.createElement("h2")).html(title)).append($(document.createElement("p")).html(message)))
     element.append($(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(async function(){
         element.remove()
     }))
@@ -369,10 +369,11 @@ async function notify(title, message, type, duration, hideFromCenter){
  * @returns {string} the selector as id of the created dialog
  */
 function createDialog(title, message, elements, width, height){
-    const id = title + "-dialog"
+    const id = title.replaceAll(" ", "_") + "-dialog"
     const headline = $(document.createElement("h2")).html(title)
     const description = $(document.createElement("p")).html(message)
-    const content = $(document.createElement("div")).addClass("content").append([headline, description, elements])
+    const cancel = $(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(() => removeDialog("#" + id))
+    const content = $(document.createElement("div")).addClass("content").append([headline, description, elements, cancel])
     if(width) content.css("width", width + "px")
     if(height) content.css("height", height + "px")
     const background = $(document.createElement("div")).addClass("background")

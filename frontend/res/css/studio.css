@@ -12,6 +12,7 @@
     padding: 15px;
     border-radius: 6px;
     transition: 100ms;
+    color: var(--hover);
 }
 .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
     background-color: var(--b0);

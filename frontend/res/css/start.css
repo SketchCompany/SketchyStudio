@@ -18,6 +18,12 @@
     margin-top: 0;
     font-size: 25px;
 }
+.hero .title button{
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 20px;
+    box-shadow: 0 2px 4px var(--bx0);
+}
 .hero .right{
     display: flex;
     flex-direction: column;
@@ -78,14 +84,6 @@
 .hero .right .comment .bi-quote{
     font-size: 45px;
     line-height: 0;
-}
-.hero .title button{
-    margin-top: 20px;
-    margin-bottom: 25px;
-    padding: 10px 25px;
-    font-size: 20px;
-    box-shadow: 0 2px 4px var(--bx0);
-    transition: all 250ms;
 }
 @media (max-width: 1030px) {
     .hero{

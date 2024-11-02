@@ -35,35 +35,35 @@ const authenticate = (req, res, next) => {
     }
 }
 
-router.post("/login", async (req, res) => {
-    try{
-        const {userOrEmail, password} = req.body
+// router.post("/login", async (req, res) => {
+//     try{
+//         const {userOrEmail, password} = req.body
 
-        if(await studio.login(userOrEmail, password).correct){
-            const id = await studio.userData({userOrEmail})
-            const token = jwt.sign({id}, SECRET_KEY, {expiresIn: "1m"})
-            res.status(200).json({
-                status: 1,
-                data: token
-            })
-        } 
-        else{
-            res.status(403).json({
-                status: 0,
-                data: "invalid credentials"
-            })
-        }
-    }
-    catch(err){
-        console.error(req.path, err)
-        res.status(500).json({
-            status: 0,
-            data: err.toString()
-        })
-    }
-})
+//         if((await studio.login(userOrEmail, password)).correct){
+//             const id = await studio.userData({userOrEmail})
+//             const token = jwt.sign({id}, SECRET_KEY, {expiresIn: "1m"})
+//             res.status(200).json({
+//                 status: 1,
+//                 data: token
+//             })
+//         } 
+//         else{
+//             res.status(403).json({
+//                 status: 0,
+//                 data: "invalid credentials"
+//             })
+//         }
+//     }
+//     catch(err){
+//         console.error(req.path, err)
+//         res.status(500).json({
+//             status: 0,
+//             data: err.toString()
+//         })
+//     }
+// })
 
-router.get("/create", authenticate, async (req, res) => {
+router.post("/create", authenticate, async (req, res) => {
     try{
         const args = req.body
         const userData = studio.userData({id: req.id})

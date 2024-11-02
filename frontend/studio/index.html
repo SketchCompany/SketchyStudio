@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script>
+        if(!localStorage.getItem("token")) open("/login?r=/studio", "_self")
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +47,7 @@
     <script>
         $(".create").click(createProject)
 
-        async function createProject(){
+        function createProject(){
             const dialog = createDialog("Projekt erstellen", "Gebe den Namen und eine kurze Beschreibung für das neue Projekt an.", `
                 <div class="crow">
                     <p>Projektname:</p>
@@ -56,7 +60,7 @@
                     <p>Beschreibung:</p>
                     <span id="descriptionInvalid" class="input-validator">
                         <p style="opacity: 0;">Ungültiger Name</p>
-                        <input id="projectDescription" maxlength="50" type="text" placeholder="Die Beschreibung">
+                        <input id="projectDescription" maxlength="50" type="text" placeholder="Die Beschreibung (optional)">
                     </span>
                 </div>
                 <button id="createProject" class="marked">Projekt erstellen</button>
@@ -83,20 +87,17 @@
 
             $("#projectDescription").keyup(function(e){
                 const description = $("#projectDescription").val()
-                if(!/\S/.test(description)){
-                    setNameInvalid("Beschreibung leer")
-                }
-                else if(hasInvalidChars(description)){
-                    setNameInvalid("Beschreibung enthält ungültige Zeichen")
+                if(hasInvalidChars(description)){
+                    setDescriptionInvalid("Beschreibung enthält ungültige Zeichen")
                 }
                 else if(description.length < 0){
-                    setNameInvalid("Beschreibung zu kurz")
+                    setDescriptionInvalid("Beschreibung zu kurz")
                 }
                 else if(description.length > 50){
-                    setNameInvalid("Beschreibung zu lang")
+                    setDescriptionInvalid("Beschreibung zu lang")
                 }
                 else{   
-                    setNameValid("Der Beschreibung ist perfekt")
+                    setDescriptionValid("Der Beschreibung ist perfekt")
                 }
             })
 
@@ -124,13 +125,22 @@
                 $("#descriptionInvalid").addClass("valid")
                 $("#descriptionInvalid").children().first().html(text)
             }
-            
-            // const res = await authSend("/b/create", {name, description})
-            // console.log(res)
+
+            $("#createProject").click(async function(){
+                if($("#nameInvalid").hasClass("valid") && $("#descriptionInvalid").hasClass("valid")){
+                    const name = $("#projectName")
+                    const description = $("#projectDescription")
+                    const res = await authSend("/b/create", {name, description})
+                    console.log(res)
+                    removeDialog(dialog)
+                }
+                else notify("Achtung", "Der angegebene Projektname oder die Projektbeschreibung ist nicht erlaubt. Ändere sie um ein neues Projekt erstellen zu können.", "warning", 10000)
+            })
         }
 
         function hasInvalidChars(text){
             if(text.includes("\"") ||
+                text.includes("!") ||
                 text.includes("§") ||
                 text.includes("$") ||
                 text.includes("%") ||
@@ -153,10 +163,14 @@
                 text.includes("}") ||
                 text.includes("[") ||
                 text.includes("]") ||
+                text.includes("(") ||
+                text.includes(")") ||
                 text.includes("^") ||
                 text.includes("|") ||
                 text.includes("~") ||
                 text.includes("@") ||
+                text.includes("#") ||
+                text.includes("+") ||
                 text.includes("€")
             ) return true
             else return false
