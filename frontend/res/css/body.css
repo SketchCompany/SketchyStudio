@@ -17,11 +17,11 @@ html{
     scroll-behavior: smooth;
 }
 ::-webkit-scrollbar{
-    background-color: transparent;
+    background-color: var(--b1);
     width: 12px;
 }
 ::-webkit-scrollbar-track{
-    background-color: transparent;
+    background-color: var(--b1);
     width: 12px;
 }
 ::-webkit-scrollbar-thumb{
@@ -81,6 +81,7 @@ a:hover{
 p{
     line-height: 25px;
     margin-top: 0;
+    color: rgb(175,175,175);
 }
 img{
     width: 100%;
@@ -290,7 +291,7 @@ header{
     left: 0;
     position: sticky;
     z-index: 100;
-    transition: 100ms;
+    transition: all 100ms;
     box-shadow: none;
     font-size: 24px;
     background-color: transparent;
@@ -313,6 +314,7 @@ header .left .title{
 header .left .title p{
     margin: 0;
     font-size: inherit;
+    color: var(--f0);
 }
 header .left .title:hover, header .right .bi-list:hover{
     cursor: pointer;
@@ -327,6 +329,7 @@ header .right .bi-list{
     font-size: 28px;
     border-radius: 6px;
     padding: 0 5px;
+    line-height: 35px;
 }
 .header-scrolling{
     box-shadow: 0 2px 4px var(--bx0);

@@ -6,6 +6,18 @@
 
     <script>
         if(!localStorage.getItem("token")) open("/login?r=/studio", "_self")
+        const token = localStorage.getItem("token")
+        fetch("https://api.sketch-company.de/backend/auth", {method: "post", body: JSON.stringify({token}), headers: {"Content-Type": "application/json"}}).then(response => response.json()).then(result => {
+            if(result.status == 0){
+                console.error("❌ token is not valid")
+                localStorage.removeItem("token")
+                openSite("/login?r=/studio")
+            }
+            else console.log("✅ token is valid")
+        }).catch(reason => {
+            console.error("send: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })
     </script>
 
     <!-- Google Fonts -->
@@ -38,6 +50,12 @@
                     </div>
                     <p>Neues Projekt</p>
                 </div>
+                <!-- <div class="project">
+                    <div class="iframeHolder">
+                        <iframe src="http://localhost:5002/studio" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                    <p>Sketchy Studio</p>
+                </div> -->
             </div>
             <!-- <h3>Andere Projekte</h3>
             <div class="otherProjectsContainer"></div> -->
@@ -45,6 +63,31 @@
     </main>
     <script src="/res?f=app.js"></script>
     <script>
+        if(isMobile()){
+            const style = $(document.createElement("style"))
+            style.html(`
+                .projects .projectsContainer{
+                    flex-wrap: no-wrap;
+                    flex-direction: column;
+                    padding: 10px 0;
+                }
+                .projects .projectsContainer .project, .projects .projectsContainer .create{
+                    padding: 10px;
+                    width: 100%;
+                }
+                .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
+                    width: 100%;
+                    height: 175px;
+                }
+                .projects .projectsContainer .project .iframeHolder iframe{
+                    width: 100%;
+                    height: 175px;
+                }
+            `)
+
+            $("head").append(style)
+        }
+
         $(".create").click(createProject)
 
         function createProject(){
@@ -97,7 +140,7 @@
                     setDescriptionInvalid("Beschreibung zu lang")
                 }
                 else{   
-                    setDescriptionValid("Der Beschreibung ist perfekt")
+                    setDescriptionValid("Die Beschreibung ist perfekt")
                 }
             })
 

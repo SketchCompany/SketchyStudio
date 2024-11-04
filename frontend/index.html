@@ -41,7 +41,7 @@
                 <i class="logo bi bi-boxes"></i>
                 <div class="comment">
                     <i class="bi bi-quote"></i>
-                    <p>Ein super einfach aufgebautes Tool um Webseiten zu bauen! Jeder kann es benutzen! Jeder zahlt goarnix! Der Einstieg ist sehr leicht und es macht einfach Spaß!</p>
+                    <p>Ein super einfach aufgebautes Tool, um Webseiten zu bauen! Jeder kann es benutzen! Jeder zahlt goarnix! Der Einstieg ist sehr leicht und es macht einfach Spaß!</p>
                     <div class="user">
                         <div>
                             <img src="/res?f=img/user_logo.png" alt="">
@@ -59,12 +59,12 @@
             <div class="why" style="flex: 0.55;">
                 <h1>Was wir machen</h1>
                 <p>
-                    Ich arbeite eigentlich alleine an diesem Projekt als Hobby Entwickler der Webentwicklung liebt.
-                    Ich wollte als kleines Kind schon eine eigene Website bauen und dachte es gäbe bestimmt schon einen weg ohne programmieren zu müssen.
-                    Den gabs natürlich auch, doch nur mit der Vorraussetzung das ich dafür Geld bezahlen muss. Somit habe ich dann den Gedanken einer 
-                    eigenen Website vorerst verworfen. Bis zu dem Zeitpunkt an dem ich Programmieren gelernt habe und mir dann gedacht habe: "Warum nicht 
-                    selber einen Website Baukasten programmieren?". Und somit entstand Sketchy Studio.
-                    Bei der Sketch Company mache ich auch Indie-Spiele und habe dafür schon meinen eigenen Launcher, 
+                    Ich arbeite eigentlich alleine an diesem Projekt als Hobbyentwickler, der Webentwicklung liebt.
+                    Ich wollte als kleines Kind schon eine eigene Website bauen und dachte, es gäbe bestimmt schon einen Weg, ohne programmieren zu müssen.
+                    Den gabs natürlich auch, doch nur mit der Voraussetzung, dass ich dafür Geld bezahlen muss. Somit habe ich dann den Gedanken einer 
+                    eigenen Website vorerst verworfen. Bis zu dem Zeitpunkt, an dem ich Programmieren gelernt habe und mir dann gedacht habe: "Warum nicht
+                    selbst einen Website-Baukasten programmieren?", und somit entstand Sketchy Studio.
+                    Bei der Sketch Company programmiere ich auch Indie-Spiele und habe dafür schon meinen eigenen Launcher, 
                     den <a href="https://sketchy-games.sketch-company.de/launcher">Sketchy Games Launcher</a> entwickelt, 
                     den ihr auf meiner Website <a href="https://sketchy-games.sketch-company.de">Sketchy Games</a> herunterladen könnt.
                 </p>
@@ -72,9 +72,9 @@
             <div class="about" style="flex: 0.45;">
                 <h1>Was ist Sketchy Studio</h1>
                 <p>
-                    Sketchy Studio ist ein kostenloser Website Builder und Editor mit einem Baukastensystem der jedem kostenlos zur verfügung steht.
-                    Er ist einfach zu bedienen und bietet Hobby Entwickler, Klein Unternehmer und einfach jeden der kein Geld für seine 
-                    Website ausgeben will, eine Möglichkeit sich im Internet breit zu machen.
+                    Sketchy Studio ist ein kostenloser Website-Builder und Editor mit einem Baukastensystem, das jedem kostenlos zur Verfügung steht.
+                    Er ist einfach zu bedienen und bietet Hobbyentwicklern, Kleinunternehmern und einfach, jeden, der kein Geld für seine 
+                    Website ausgeben will, eine Möglichkeit, sich im Internet breitzumachen.
                 </p>
             </div>
         </div>
@@ -82,6 +82,28 @@
 
     <script src="/res?f=app.js"></script>
     <script>
+        if(isMobile()){
+            const style = $(document.createElement("style"))
+            style.html(`
+                .hero{
+                    padding: 0 0;
+                    margin-bottom: 50px;
+                }
+                .hero .right{
+                    margin-right: 0;
+                    width: 100%;
+                }
+                .hero .title{
+                    padding: 0 5px;
+                }
+                .hero .right .comment{
+                    border-radius: 6px; 
+                }
+            `)
+
+            $("head").append(style)
+        }
+
         setTimeout(() => {
            $($("spline-viewer").get(0).shadowRoot).find("#logo").remove()
         }, 1000)

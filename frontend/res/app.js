@@ -33,6 +33,8 @@ $(document).ready(function(){
         </div>
     `)
 
+    let minScroll = 150
+
     if(isMobile()){
         const style = $(document.createElement("style"))
         style.html(`
@@ -40,11 +42,25 @@ $(document).ready(function(){
                 font-size: 15px;
             }
             main{
-                padding: 2rem 10px;
-                
+                padding: 1.5rem 10px;
             }
-            .hero .title{
-                padding: 0 5px;
+            .dialog .content{
+                min-width: 95% !important;
+                width: 95% !important;
+                height: 90% !important;
+                gap: 15px;
+            }
+            .dialog .content .crow{
+                flex-direction: column;
+                align-items: normal;
+                justify-content: start;
+                gap: 15px;
+            }
+            .dialog .content .crow input{
+                width: 100%;
+            }
+            .dialog .content .crow p{
+                text-align: start;
             }
             .coffcanvas .content{
                 width: 100%;
@@ -68,21 +84,13 @@ $(document).ready(function(){
                 font-size: 25px;
                 line-height: 25px;
             }
-            .hero{
-                padding: 0 0;
-                margin-bottom: 50px;
-            }
-            .hero .right{
-                margin-right: 0;
-                width: 100%;
-            }
         `)
-
+        minScroll = 100
         $("head").append(style)
     }
 
     window.addEventListener("scroll", () => {
-        if(window.scrollY > 150){
+        if(window.scrollY > minScroll){
             $("header").addClass("header-scrolling")
         }
         else if($("header").hasClass("header-scrolling")){
@@ -150,30 +158,39 @@ function openSite(href, target){
  */
 function get(url){
     return new Promise(async cb => {
-        const response = await fetch(url)
-        const result = await response.json()
-        console.log("get:", url, "response:", result)
-        cb(result.data)
+        fetch(url).then(response => response.json()).then(result => {
+            console.log("get:", url, "response:", result)
+            cb(result.data)
+        }).catch(reason => {
+            console.error("get: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })
     })
 }
 // fetch information from the backend with the GET method and return the complete response
 function get(url, raw){
     return new Promise(async cb => {
-        const response = await fetch(url)
-        const result = await response.json()
-        console.log("get:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)   
+        fetch(url).then(response => response.json()).then(result => {
+            console.log("get:", url, "response:", result)
+            if(raw) cb(result)
+            else cb(result.data) 
+        }).catch(reason => {
+            console.error("get: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })  
     })
 }
 // fetch information from the backend with the GET method and return the complete response but only log it when "log" was set to true
 function get(url, raw, log){
     return new Promise(async cb => {
-        const response = await fetch(url)
-        const result = await response.json()
-        if(log) console.log("get:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)   
+        fetch(url).then(response => response.json()).then(result => {
+            if(log) console.log("get:", url, "response:", result)
+            if(raw) cb(result)
+            else cb(result.data)
+        }).catch(reason => {
+            console.error("get: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })  
     })
 }
 function authGet(url, raw){
@@ -184,11 +201,16 @@ function authGet(url, raw){
             console.error("authGet: cannot make a request without a token")
             cb("error: no token found")
         }
-        const response = await fetch(url, {headers: {"Authorization": "Bearer" + token}})
-        const result = await response.json()
-        console.log("get:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)   
+        else{
+            fetch(url, {headers: {"Authorization": "Bearer" + token}}).then(response => response.json()).then(result => {
+                console.log("get:", url, "response:", result)
+                if(raw) cb(result)
+                else cb(result.data)   
+            }).catch(reason => {
+                console.error("get: ❌ failed:", reason)
+                cb({status: 0, err: reason})
+            })
+        }
     })
 }
 // fetch information from or to the backend with the POST method and return the data of the response
@@ -201,30 +223,39 @@ function authGet(url, raw){
  */
 function send(url, data){
     return new Promise(async cb => {
-        const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}})
-        const result = await response.json()
-        console.log("send:", url, "response:", result)
-        cb(result.data)
+        fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}}).then(response => response.json()).then(result => {
+            console.log("send:", url, "response:", result)
+            cb(result.data)
+        }).catch(reason => {
+            console.error("send: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })
     })
 }
 // fetch information from or to the backend with the POST method and return the complete response
 function send(url, data, raw){
     return new Promise(async cb => {
-        const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}})
-        const result = await response.json()
-        console.log("send:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)
+        fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}}).then(response => response.json()).then(result => {
+            console.log("send:", url, "response:", result)
+            if(raw) cb(result)
+            else cb(result.data)
+        }).catch(reason => {
+            console.error("send: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })
     })
 }
 // fetch information from or to the backend with the POST method and return the complete response but only log it when "log" was set to true
 function send(url, data, raw, log){
     return new Promise(async cb => {
-        const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}})
-        const result = await response.json()
-        if(log) console.log("send:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)
+        fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json"}}).then(response => response.json()).then(result => {
+            if(log) console.log("send:", url, "response:", result)
+                if(raw) cb(result)
+                else cb(result.data)
+        }).catch(reason => {
+            console.error("send: ❌ failed:", reason)
+            cb({status: 0, err: reason})
+        })
     })
 }
 function authSend(url, data, raw){
@@ -235,11 +266,16 @@ function authSend(url, data, raw){
             console.error("authSend: cannot make a request without a token")
             cb("error: no token found")
         }
-        const response = await fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}})
-        const result = await response.json()
-        console.log("send:", url, "response:", result)
-        if(raw) cb(result)
-        else cb(result.data)
+        else{
+            fetch(url, {method: "post", body: JSON.stringify(data), headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}}).then(response => response.json()).then(result => {
+                console.log("authSend:", url, "response:", result)
+                if(raw) cb(result)
+                else cb(result.data)
+            }).catch(reason => {
+                console.error("send: ❌ failed:", reason)
+                cb({status: 0, err: reason})
+            })
+        }
     })
 }
 // create an notification in the bottom right and call a callback when it was clicked

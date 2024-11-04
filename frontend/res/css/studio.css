@@ -11,8 +11,7 @@
 .projects .projectsContainer .project, .projects .projectsContainer .create{
     padding: 15px;
     border-radius: 6px;
-    transition: 100ms;
-    color: var(--hover);
+    transition: all 100ms;
 }
 .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
     background-color: var(--b0);

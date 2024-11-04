@@ -75,6 +75,7 @@
 }
 .hero .right .comment .user p{
     margin: 0;
+    color: var(--f0);
 }
 .hero .right .comment p{
     margin: 0;

@@ -153,6 +153,9 @@ export default class Functions{
             }
         })
     }
+
+    get = get
+    send = send
 }
 /**
  * fetches a specific ```url``` with the ```GET``` method and returns the data of the response
