@@ -22,9 +22,9 @@ $(document).ready(function(){
                 </div>
                 <div class="options">
                     <div>
-                        <h3>Links</h3>
                         <div class="links">
-                            
+                            <a href="/login?r=/"><span class="bi bi-person"></span> Anmelden</a>
+                            <a href="/studio"><span class="bi bi-boxes"></span> Zum Studio</a>
                         </div>
                     </div>
                 </div>
@@ -98,14 +98,6 @@ $(document).ready(function(){
         }
     })
 
-    // disable spellcheck and autocomplete attributes for input fields
-    const inputs = $("input").map(function(){return this}).get()
-    for (let i = 0; i < inputs.length; i++) {
-        const element = $(inputs[i]);
-        element.attr("spellcheck", "false")
-        element.attr("autocomplete", "off")
-    }
-
     // input fields with a clickable eye on the right side to view input of password input fields
     const inputViewables = $(".input-viewable").map(function(){return this}).get()
     for (let i = 0; i < inputViewables.length; i++) {
@@ -126,6 +118,18 @@ $(document).ready(function(){
         })
     }
 })
+setInputFields()
+// disable spellcheck and autocomplete attributes for input fields
+function setInputFields(){
+    const inputs = $("input").map(function(){return this}).get()
+    for (let i = 0; i < inputs.length; i++) {
+        const element = $(inputs[i]);
+        if(element.attr("checked")) continue
+        element.attr("spellcheck", "false")
+        element.attr("autocomplete", "off")
+        element.attr("checked")
+    }
+}
 function toggleOffcanvas(){
     if($(".coffcanvas").css("display") == "none"){
         $(".coffcanvas").css("display", "flex")
@@ -416,6 +420,7 @@ function createDialog(title, message, elements, width, height){
     const dialog = $(document.createElement("div")).attr("id", id).addClass("dialog").append([background, content])
     $("body").prepend(dialog)
     disableScroll()
+    setInputFields()
     return "#" + id
 }
 /**

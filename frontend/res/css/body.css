@@ -121,6 +121,12 @@ button.marked:hover{
     border-color: rgb(95, 40, 255);
     background-color: rgb(80, 0, 255);
 }
+button.marked:disabled{
+    border-color: var(--b3);
+    background-color: var(--darkgray);
+    cursor: not-allowed;
+    color: var(--gray);
+}
 /* button.marked:hover{
     border-color: rgb(255, 0, 220);
     background-color: rgb(175, 0, 150);
@@ -134,12 +140,7 @@ button.marked:hover{
     background-color: rgb(100,75,255);
     cursor: pointer;
 } */
-button.marked:disabled{
-    border-color: var(--b3);
-    background-color: var(--darkgray);
-    cursor: not-allowed;
-    color: var(--gray);
-}
+
 a.marked{
     color: mediumspringgreen;
 }
@@ -442,17 +443,21 @@ header .right .bi-list{
     gap: 10px;
 }
 .coffcanvas .content .options .links a{
-    background-color: var(--b0);
-    padding: 10px 15px;
-    border-radius: 6px;
     font-size: 18px;
+    border: 1px solid springgreen;
+    background-color: rgb(0, 170, 100);
+    border-radius: 24px;
+    padding: 5px 25px;
+    transition: all 250ms;
+    color: var(--f0);
+}
+.coffcanvas .content .options .links a:hover{
+    text-decoration: none;
+    border-color: rgb(95, 40, 255);
+    background-color: rgb(80, 0, 255);
 }
 .coffcanvas .content .options .links a .bi{
     margin-right: 5px;
-}
-.coffcanvas .content .options .links a:hover{
-    background-color: var(--b1);
-    text-decoration: none;
 }
 .coffcanvas .background{
     z-index: 501;
@@ -465,6 +470,7 @@ header .right .bi-list{
 .coffcanvas .top{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .coffcanvas .top h2{
     width: fit-content;
@@ -473,14 +479,15 @@ header .right .bi-list{
     font-weight: normal;
 }
 .coffcanvas .top .bi-x-lg{
-    font-size: 35px;
+    font-size: 25px;
     border-radius: 6px;
     padding: 0 5px;
+    transition: all 100ms;
+    color: rgb(175,175,175);
 }
 .coffcanvas .top .bi-x-lg:hover{
-    font-size: 35px;
     background-color: var(--b3);
-    transition: all 100ms;
+    color: var(--f0);
     cursor: pointer;
 }
 .notification{

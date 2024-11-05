@@ -7,6 +7,7 @@ import Studio from "./studio.mjs"
 
 const studio = new Studio()
 const router = express.Router()
+router.use(express.json())
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const BASE_DIR = __dirname + "/frontend/"
@@ -20,14 +21,14 @@ const authenticate = async (req, res, next) => {
             return res.sendStatus(401)
         }
 
-        jwt.verify(token, SECRET_KEY, (err, id) => {
+        jwt.verify(token, SECRET_KEY, (err, object) => {
             if(err){
                 console.error("authenticate: ❌ failed")
                 // console.error("authenticate: error:", err)
                 return res.sendStatus(403)
             }
             console.log("authenticate: ✅ successful")
-            req.id = id
+            req.id = object.id
             next()
         })
     }
@@ -40,7 +41,7 @@ const authenticate = async (req, res, next) => {
 router.post("/create", authenticate, async (req, res) => {
     try{
         const args = req.body
-        const userData = studio.userData({id: req.id})
+        const userData = await studio.userData({id: req.id})
         const response = await studio.createProject(userData, args)
 
         if(!response){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -171,8 +171,8 @@
 
             $("#createProject").click(async function(){
                 if($("#nameInvalid").hasClass("valid") && $("#descriptionInvalid").hasClass("valid")){
-                    const name = $("#projectName")
-                    const description = $("#projectDescription")
+                    const name = $("#projectName").val()
+                    const description = $("#projectDescription").val()
                     const res = await authSend("/b/create", {name, description}, true)
                     if(res.status == 1){
                         console.log(res)

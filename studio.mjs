@@ -17,7 +17,7 @@ export default class Functions{
     createProject = (userData, args) => {
         return new Promise(async cb => {
             try{
-                const PROJECT_DIR = PROFILES_DIR + args.id + "/" + args.name + "/"
+                const PROJECT_DIR = PROFILES_DIR + userData.id + "/" + args.name + "/"
 
                 const studioData = JSON.parse(userData.studio)
                 for (let i = 0; i < studioData.length; i++) {
@@ -50,7 +50,7 @@ export default class Functions{
                         --color-primary: rgb(0,75,255);
                         --color-border-primary: rgb(0,150,255);
                         --color-secondary: rgb(100,75,255);
-                        --color-border-secondary: rgb(150,100,255)
+                        --color-border-secondary: rgb(150,100,255);
                         --color-hover: rgb(200,200,200);
                     }
                     html{
@@ -61,7 +61,7 @@ export default class Functions{
                         color: var(--color-font);
                         text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
                         font-family: "Open Sans", sans-serif;
-                        marign: 0;
+                        margin: 0;
                         padding: 0;
                     }
                     h1{
@@ -76,7 +76,7 @@ export default class Functions{
                         font-size: 25px;
                         line-height: 30px;
                     }
-                `)
+                `.replaceAll("                    ", "").trim())
 
                 await writeFile(PROJECT_DIR + "index.html", `
                     <!DOCTYPE html>
@@ -94,24 +94,24 @@ export default class Functions{
                         <link rel="author" title="${userData.user}">
                         <link rel="dns-prefetch" href="https://studio.sketch-company.de">
                         <link rel="preconnect" href="https://studio.sketch-company.de">
-                        <link rel="preload" href="https://studio.sketch-company.de/api/${args.id}/${args.name}/index.css">
-                        <link rel="stylesheet" href="https://studio.sketch-company.de/api/${args.id}/${args.name}/index.css">
+                        <link rel="preload" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/index.css">
+                        <link rel="stylesheet" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/index.css">
 
-                        <title>Neues Projekt - ${userData.user}</title>
+                        <title>${args.name} - ${userData.user}</title>
                     </head>
                     <body>
                         <h1>Neues Projekt</h1>
                         <p>Hover über die verschiedenen Elemente und klicke sie an um sie zu bearbeiten.</p>
                     </body>
                     </html>
-                `)
+                `.replaceAll("                    ", "").trim())
 
                 console.log("createProject: created files: index.css, index.html")
 
                 studioData.push(newStudioProjectData)
                 userData.studio = JSON.stringify(studioData)
                 const updateResponse = await send("https://api.sketch-company.de/u/update", userData)
-                console.log("createProject: updated account", updateResponse)
+                console.log("createProject: updated account")
                 cb()
             }
             catch(err){
@@ -144,7 +144,7 @@ export default class Functions{
     
                 if(!userData.studio) userData.studio = "[]"
     
-                console.log("userData: for", identifierObject, userData)
+                console.log("userData: for", identifierObject)
                 cb(userData)
             }
             catch(err){
@@ -195,7 +195,7 @@ function send(url, data){
 }
 function createDirectory(path){
     return new Promise(async cb => {
-        fs.mkdir(path, (err) => {
+        fs.mkdir(path, {recursive: true}, (err) => {
             if(err){
                 console.error("createDirectory:", err)
                 cb(err)
