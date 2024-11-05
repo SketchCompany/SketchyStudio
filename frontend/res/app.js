@@ -206,7 +206,7 @@ function authGet(url, raw){
             cb("error: no token found")
         }
         else{
-            fetch(url, {headers: {"Authorization": "Bearer" + token}}).then(response => response.json()).then(result => {
+            fetch(url, {headers: {"Authorization": "Bearer " + token}}).then(response => response.json()).then(result => {
                 console.log("get:", url, "response:", result)
                 if(raw) cb(result)
                 else cb(result.data)   

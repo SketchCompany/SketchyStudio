@@ -6,18 +6,6 @@
 
     <script>
         if(!localStorage.getItem("token")) open("/login?r=/studio", "_self")
-        const token = localStorage.getItem("token")
-        fetch("https://api.sketch-company.de/backend/auth", {method: "post", body: JSON.stringify({token}), headers: {"Content-Type": "application/json"}}).then(response => response.json()).then(result => {
-            if(result.status == 0){
-                console.error("❌ token is not valid")
-                localStorage.removeItem("token")
-                openSite("/login?r=/studio")
-            }
-            else console.log("✅ token is valid")
-        }).catch(reason => {
-            console.error("send: ❌ failed:", reason)
-            cb({status: 0, err: reason})
-        })
     </script>
 
     <!-- Google Fonts -->
@@ -34,6 +22,7 @@
 
     <!-- custom resources -->
     <title>Studio | Sketchy Studio</title>
+    <link rel="preconnect" href="https://api.sketch-company.de">
     <link rel="stylesheet" href="/res?f=css/body.css">
     <link rel="stylesheet" href="/res?f=css/studio.css">
 </head>
@@ -63,32 +52,57 @@
     </main>
     <script src="/res?f=app.js"></script>
     <script>
-        if(isMobile()){
-            const style = $(document.createElement("style"))
-            style.html(`
-                .projects .projectsContainer{
-                    flex-wrap: no-wrap;
-                    flex-direction: column;
-                    padding: 10px 0;
-                }
-                .projects .projectsContainer .project, .projects .projectsContainer .create{
-                    padding: 10px;
-                    width: 100%;
-                }
-                .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
-                    width: 100%;
-                    height: 175px;
-                }
-                .projects .projectsContainer .project .iframeHolder iframe{
-                    width: 100%;
-                    height: 175px;
-                }
-            `)
+        $(document).ready(async function(){
+            // check if token is valid
+            const token = localStorage.getItem("token")
+            const auth = await send("https://api.sketch-company.de/backend/auth", {token})
+            if(auth.status == 0){
+                console.error("❌ token is not valid")
+                localStorage.removeItem("token")
+                openSite("/login?r=/studio")
+            }
+            else console.log("✅ token is valid")
 
-            $("head").append(style)
-        }
+            // apply mobile style
+            if(isMobile()){
+                const style = $(document.createElement("style"))
+                style.html(`
+                    .projects .projectsContainer{
+                        flex-wrap: no-wrap;
+                        flex-direction: column;
+                        padding: 10px 0;
+                    }
+                    .projects .projectsContainer .project, .projects .projectsContainer .create{
+                        padding: 10px;
+                        width: 100%;
+                    }
+                    .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
+                        width: 100%;
+                        height: 175px;
+                    }
+                    .projects .projectsContainer .project .iframeHolder iframe{
+                        width: 100%;
+                        height: 175px;
+                    }
+                `)
 
-        $(".create").click(createProject)
+                $("head").append(style)
+            }
+
+            // setup create function
+            $(".create").click(createProject)
+
+            // load projects
+            const projects = (await authGet("/b/projects")).projects
+            for (let i = 0; i < projects.length; i++) {
+                const project = projects[i];
+                const iframe = $(document.createElement("iframe")).attr("src", location.origin + "/studio/" + project.name).attr("frameborder", "0").attr("scrolling", "no")
+                const iframeHolder = $(document.createElement("div")).addClass("iframeHolder").append(iframe)
+                const name = $(document.createElement("p")).html(project.name)
+                const projectDiv = $(document.createElement("div")).addClass("project").attr("title", project.description).append([iframeHolder, name])
+                $(".projectsContainer").append(projectDiv)
+            }
+        })
 
         function createProject(){
             const dialog = createDialog("Projekt erstellen", "Gebe den Namen und eine kurze Beschreibung für das neue Projekt an.", `

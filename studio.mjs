@@ -124,6 +124,35 @@ export default class Functions{
         })
     }
 
+    projects = (userData, args) => {
+        return new Promise(async cb => {
+            try{
+                const studioProjects = JSON.parse(userData.studio)
+                const projectsFolders = await readDirectory(PROFILES_DIR + userData.id)
+                
+                for (let i = 0; i < studioProjects.length; i++) {
+                    const element = studioProjects[i];
+                    element.index = i
+                    if(element.name != projectsFolders[i]){
+                        console.warn("projects: found project, which is missing in the database or on the server")
+                        console.warn("projects: project:", element.name)
+                        console.warn("projects: databse:", studioProjects)
+                        console.warn("projects: server:", projectsFolders)
+                    }
+                }
+
+                cb({projects: studioProjects, folders: projectsFolders})
+            }
+            catch(err){
+                console.error("createProject:", err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
+            }
+        })
+    }
+
     login = (userOrEmail, password) => {
         return new Promise(async cb => {
             try{
@@ -223,7 +252,7 @@ function writeFile(path, data){
     return new Promise(async cb => {
         fs.writeFile(path, data, (err) => {
             if(err){
-                console.error("createFile:", err)
+                console.error("writeFile:", err)
                 cb(err)
             }
             else{
@@ -236,11 +265,24 @@ function readFile(path){
     return new Promise(async cb => {
         fs.readFile(path, (err, data) => {
             if(err){
-                console.error("createFile:", err)
+                console.error("readFile:", err)
                 cb(err)
             }
             else{
                 cb(data)
+            }
+        })
+    })
+}
+function readDirectory(path){
+    return new Promise(async cb => {
+        fs.readdir(path, (err, files) => {
+            if(err){
+                console.error("readDirectory:", err)
+                cb(err)
+            }
+            else{
+                cb(files)
             }
         })
     })

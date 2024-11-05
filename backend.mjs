@@ -66,4 +66,31 @@ router.post("/create", authenticate, async (req, res) => {
     }
 })
 
+router.get("/projects", authenticate, async (req, res) => {
+    try{
+        const userData = await studio.userData({id: req.id})
+        const response = await studio.projects(userData)
+
+        if(response){
+            res.status(200).json({
+                status: 1,
+                data: response
+            })
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response.data
+            })
+        }
+    }
+    catch(err){
+        console.error(req.path, err)
+        res.status(500).json({
+            status: 0,
+            data: err.toString()
+        })
+    }
+})
+
 export default router
