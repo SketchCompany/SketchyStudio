@@ -14,7 +14,7 @@ export default class Functions{
      * @param {JSON} args 
      * @returns 
      */
-    createProject = (userData, args) => {
+    createProject(userData, args){
         return new Promise(async cb => {
             try{
                 const PROJECT_DIR = PROFILES_DIR + userData.id + "/" + args.name + "/"
@@ -92,9 +92,7 @@ export default class Functions{
 
                         <!-- Sketchy Studio -->
                         <link rel="author" title="${userData.user}">
-                        <link rel="dns-prefetch" href="https://studio.sketch-company.de">
                         <link rel="preconnect" href="https://studio.sketch-company.de">
-                        <link rel="preload" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/index.css">
                         <link rel="stylesheet" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/index.css">
 
                         <title>${args.name} - ${userData.user}</title>
@@ -124,7 +122,7 @@ export default class Functions{
         })
     }
 
-    projects = (userData, args) => {
+    getProjects(userData, args){
         return new Promise(async cb => {
             try{
                 const studioProjects = JSON.parse(userData.studio)
@@ -153,7 +151,52 @@ export default class Functions{
         })
     }
 
-    login = (userOrEmail, password) => {
+    getProject(userData, args){
+        return new Promise(async cb => {
+            try{
+                const studioProjects = JSON.parse(userData.studio)
+                for (let i = 0; i < studioProjects.length; i++) {
+                    const element = studioProjects[i];
+                    if(element.name == args.name){
+                        cb(element)
+                        break
+                    }
+                }
+                cb()
+            }
+            catch(err){
+                console.error("createProject:", err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
+            }
+        })
+    }
+
+    getFileFromProject(userData, args){
+        return new Promise(async cb => {
+            try{
+                const filePath = args.project.project_dir + "/" + args.fileName
+                if(exists(filePath)){
+                    const fileData = await readFile(filePath)
+                    cb(fileData)
+                }
+                else{
+                    cb({status: 0, data: "Die gesuchte Datei konnte nicht gefunden werden: " + args.fileName})
+                }
+            }
+            catch(err){
+                console.error("getFileFromProject:", err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
+            }
+        })
+    }
+
+    login(userOrEmail, password){
         return new Promise(async cb => {
             try{
                 const response = await send("https://api.sketch-company.de/u/login", {userOrEmail, password})
@@ -161,12 +204,15 @@ export default class Functions{
             }
             catch(err){
                 console.error("login:", err)
-                cb(err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
             }
         })
     }
 
-    userData = (identifierObject) => {
+    userData(identifierObject){
         return new Promise(async cb => {
             try{
                 const userData = await send("https://api.sketch-company.de/u/find", identifierObject)
@@ -178,7 +224,10 @@ export default class Functions{
             }
             catch(err){
                 console.error("userData:", err)
-                cb(err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
             }
         })
     }
@@ -269,7 +318,7 @@ function readFile(path){
                 cb(err)
             }
             else{
-                cb(data)
+                cb(data.toString())
             }
         })
     })

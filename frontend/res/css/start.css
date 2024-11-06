@@ -7,10 +7,10 @@
     padding: 25px;
 }
 .hero .title .headline{
-    font-size: 55px;
+    font-size: 45px;
     font-style: italic;
     margin-left: -5px;
-    line-height: 55px;
+    line-height: 45px;
 }
 .hero .title .subtitle{
     font-family: "Open Sans", sans-serif;

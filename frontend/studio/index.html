@@ -53,28 +53,23 @@
     <script src="/res?f=app.js"></script>
     <script>
         $(document).ready(async function(){
-            // check if token is valid
-            const token = localStorage.getItem("token")
-            const auth = await send("https://api.sketch-company.de/backend/auth", {token})
-            if(auth.status == 0){
-                console.error("❌ token is not valid")
-                localStorage.removeItem("token")
-                openSite("/login?r=/studio")
-            }
-            else console.log("✅ token is valid")
-
             // apply mobile style
             if(isMobile()){
                 const style = $(document.createElement("style"))
                 style.html(`
                     .projects .projectsContainer{
-                        flex-wrap: no-wrap;
+                        flex-wrap: nowrap;
                         flex-direction: column;
                         padding: 10px 0;
+                        gap: 20px;
                     }
                     .projects .projectsContainer .project, .projects .projectsContainer .create{
-                        padding: 10px;
+                        padding: 5px 5px 0 5px;
                         width: 100%;
+                    }
+                    .projects .projectsContainer .project:hover, .projects .projectsContainer .create:hover{
+                        background-color: transparent;
+                        box-shadow: none;
                     }
                     .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
                         width: 100%;
@@ -93,16 +88,29 @@
             $(".create").click(createProject)
 
             // load projects
+            $(".projectsContainer")
             const projects = (await authGet("/b/projects")).projects
             for (let i = 0; i < projects.length; i++) {
                 const project = projects[i];
-                const iframe = $(document.createElement("iframe")).attr("src", location.origin + "/studio/" + project.name).attr("frameborder", "0").attr("scrolling", "no")
+                const id = project.name + "-project"
+                const iframe = $(document.createElement("iframe")).attr("src", "/studio/" + project.name).attr("frameborder", "0").attr("scrolling", "no").attr("sandbox", "")
                 const iframeHolder = $(document.createElement("div")).addClass("iframeHolder").append(iframe)
                 const name = $(document.createElement("p")).html(project.name)
-                const projectDiv = $(document.createElement("div")).addClass("project").attr("title", project.description).append([iframeHolder, name])
+                const projectDiv = $(document.createElement("div")).addClass("project").attr("title", project.description).attr("id", id).append([iframeHolder, name])
+                projectDiv.click(() => openProject(project))
                 $(".projectsContainer").append(projectDiv)
+                // const timeout = setTimeout(() => {
+                //     $("#" + id).remove()
+                // }, 1000)
+                // $("#" + id).on("load", function(){
+                //     clearTimeout(timeout)
+                // })
             }
         })
+
+        function openProject(project){
+            openSite("/studio/" + project.name)
+        }
 
         function createProject(){
             const dialog = createDialog("Projekt erstellen", "Gebe den Namen und eine kurze Beschreibung für das neue Projekt an.", `
@@ -238,12 +246,7 @@
             else return false
         }
 
-        const timeout = setTimeout(() => {
-            $("#5001").remove()
-        }, 1000)
-        $("#5001").on("load", function(){
-            clearTimeout(timeout)
-        })
+
     </script>
 </body>
 </html>

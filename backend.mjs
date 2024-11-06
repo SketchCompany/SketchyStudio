@@ -69,7 +69,7 @@ router.post("/create", authenticate, async (req, res) => {
 router.get("/projects", authenticate, async (req, res) => {
     try{
         const userData = await studio.userData({id: req.id})
-        const response = await studio.projects(userData)
+        const response = await studio.getProjects(userData)
 
         if(response){
             res.status(200).json({
@@ -93,4 +93,72 @@ router.get("/projects", authenticate, async (req, res) => {
     }
 })
 
-export default router
+router.get("/project/:name", authenticate, async (req, res) => {
+    try{
+        const args = {name: req.params.name}
+        const userData = await studio.userData({id: req.id})
+        const response = await studio.getProject(userData, args)
+
+        if(response){
+            res.status(200).json({
+                status: 1,
+                data: response
+            })
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response.data
+            })
+        }
+    }
+    catch(err){
+        console.error(req.path, err)
+        res.status(500).json({
+            status: 0,
+            data: err.toString()
+        })
+    }
+})
+
+router.get("/project/:name/files", authenticate, async (req, res) => {
+    try{
+        const args = {name: req.params.name}
+        const userData = await studio.userData({id: req.id})
+        const response = await studio.getProject(userData, args)
+
+        if(response){
+            const project = response
+            const fileName = req.query.name
+            const response2 = await studio.getFileFromProject(userData, {project, fileName})
+            if(response2.status != 0){
+                const fileData = response2
+                res.status(200).json({
+                    status: 1,
+                    data: fileData
+                })
+            }
+            else{
+                res.status(500).json({ 
+                    status: 0,
+                    data: response2.data
+                })
+            }
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response.data
+            })
+        }
+    }
+    catch(err){
+        console.error(req.path, err)
+        res.status(500).json({
+            status: 0,
+            data: err.toString()
+        })
+    }
+})
+
+export default {router, studio}
