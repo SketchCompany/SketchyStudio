@@ -43,9 +43,11 @@ export default class Functions{
                 await writeFile(PROJECT_DIR + "index.css", `
                     :root{
                         --color-font: rgb(10,10,10);
+                        --color-font-dark: rgb(225,225,225);
                         --color-background-1: rgb(250,250,250);
                         --color-background-2: rgb(240,240,240);
                         --color-background-3: rgb(230,230,230);
+                        --color-background-dark: rgb(20,20,20);
                         --color-border: rgb(150,150,150);
                         --color-primary: rgb(0,75,255);
                         --color-border-primary: rgb(0,150,255);
@@ -57,7 +59,7 @@ export default class Functions{
                         scroll-behavior: smooth;
                     }
                     body{
-                        background-color: var(--color-background-1);
+                        background-color: var(--color-background-dark);
                         color: var(--color-font);
                         font-family: "Open Sans", sans-serif;
                         margin: 0;
