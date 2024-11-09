@@ -59,7 +59,6 @@ export default class Functions{
                     body{
                         background-color: var(--color-background-1);
                         color: var(--color-font);
-                        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
                         font-family: "Open Sans", sans-serif;
                         margin: 0;
                         padding: 0;
@@ -93,12 +92,12 @@ export default class Functions{
                         <!-- Sketchy Studio -->
                         <link rel="author" title="${userData.user}">
                         <link rel="preconnect" href="https://studio.sketch-company.de">
-                        <link rel="stylesheet" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/index.css">
+                        <link rel="stylesheet" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/files?name=index.css">
 
                         <title>${args.name} - ${userData.user}</title>
                     </head>
                     <body>
-                        <h1>Neues Projekt</h1>
+                        <h1>{args.name}</h1>
                         <p>Hover über die verschiedenen Elemente und klicke sie an um sie zu bearbeiten.</p>
                     </body>
                     </html>
@@ -234,6 +233,7 @@ export default class Functions{
 
     get = get
     send = send
+    exists = exists
 }
 /**
  * fetches a specific ```url``` with the ```GET``` method and returns the data of the response

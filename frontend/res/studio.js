@@ -271,15 +271,15 @@ class SketchyStudio{
         const id = title.replaceAll(" ", "_") + "-dialog"
         const headline = $(document.createElement("h2")).html(title)
         const description = $(document.createElement("p")).html(message)
-        const cancel = $(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(() => removeDialog("#" + id))
+        const cancel = $(document.createElement("i")).addClass(["bi", "bi-x-lg"]).click(() => this.removeDialog("#" + id))
         const content = $(document.createElement("div")).addClass("content").append([headline, description, elements, cancel])
         if(width) content.css("width", width + "px")
         if(height) content.css("height", height + "px")
         const background = $(document.createElement("div")).addClass("background")
         const dialog = $(document.createElement("div")).attr("id", id).addClass("dialog").append([background, content])
         $("body").prepend(dialog)
-        disableScroll()
-        setInputFields()
+        this.disableScroll()
+        this.setInputFields()
         return "#" + id
     }
     /**
@@ -287,7 +287,39 @@ class SketchyStudio{
      * @param {string} id the id of the dialog to remove
      */
     removeDialog(id){
-        enableScroll()
+        this.enableScroll()
         $(id).remove()
+    }
+
+    disableScroll(){
+        $("body").css("overflow", "hidden")
+        $("body").css("height", "100%")
+    }
+    enableScroll(){
+        $("body").css("overflow", "auto")
+        $("body").css("height", "fit-content")
+    }
+
+    // disable spellcheck and autocomplete attributes for input fields
+    setInputFields(){
+        const inputs = $("input").map(function(){return this}).get()
+        for (let i = 0; i < inputs.length; i++) {
+            const element = $(inputs[i]);
+            if(element.attr("checked")) continue
+            element.attr("spellcheck", "false")
+            element.attr("autocomplete", "off")
+            element.attr("checked")
+        }
+    }
+
+    toggleOffcanvas(){
+        if($(".coffcanvas").css("display") == "none"){
+            $(".coffcanvas").css("display", "flex")
+            this.disableScroll()
+        }
+        else{
+            $(".coffcanvas").css("display", "none")
+            this.enableScroll()
+        }
     }
 }

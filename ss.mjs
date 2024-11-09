@@ -12,6 +12,7 @@ const BASE_DIR = __dirname + "/frontend/"
 
 app.use(express.json())
 app.use("/b", backend.router)
+app.use("/api", backend.router2)
 
 const authenticate = async (req, res, next) => {
     try{
@@ -53,10 +54,6 @@ app.get("/res", (req, res) => {
 app.get("/studio/:name", (req, res) => {
     res.sendFile(BASE_DIR + "studio/project.html")
 })
-
-// app.get("/api/:id/:name/files", (req, res) => {
-//     res.sendFile(BASE_DIR + "studio/project.html")
-// })
 
 app.get("*", (req, res) => {
     try{

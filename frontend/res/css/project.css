@@ -1,0 +1,584 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+:root:not(sketchystudio *){
+    --f0: rgb(225,225,225);
+    --b0: rgb(25,25,30);
+    --b1: rgb(30,30,35);
+    --b2: rgb(40,40,45);
+    --b3: rgb(50,50,55);
+    --bx0: rgb(0,0,0,0.4);
+    --darkgray: rgb(70,70,75);
+    --gray: rgb(100,100,105);
+    --hover: rgba(150,150,155, 0.75);
+    --hover2: rgba(100,100,105, 0.75);
+
+    --padding: 5%;
+}
+html:not(sketchystudio *){
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar:not(sketchystudio *){
+    background-color: var(--b1);
+    width: 12px;
+}
+::-webkit-scrollbar-track:not(sketchystudio *){
+    background-color: var(--b1);
+    width: 12px;
+}
+::-webkit-scrollbar-thumb:not(sketchystudio *){
+    background-color: var(--b2);
+    width: 12px;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover:not(sketchystudio *){
+    background-color: var(--b3);
+    cursor: pointer;
+}
+main:not(sketchystudio *){
+    padding: 2rem var(--padding);
+    margin-top: 50px;
+}
+main > *:not(sketchystudio *){
+    animation: dropIn 750ms;
+}
+h1:not(sketchystudio *), h2:not(sketchystudio *), h3:not(sketchystudio *), h4:not(sketchystudio *), h5:not(sketchystudio *), h6:not(sketchystudio *){
+    font-family: "Outfit", system-ui;
+    margin-top: 10px;
+    font-weight: bold;
+}
+h1:not(sketchystudio *){
+    font-size: 50px;
+    line-height: 50px;
+    margin-bottom: 25px;
+}
+h2:not(sketchystudio *){
+    font-size: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+}
+h3:not(sketchystudio *){
+    font-size: 25px;
+    line-height: 25px;
+}
+a:not(sketchystudio *){
+    text-decoration: none;
+    color: springgreen;
+}
+a:hover:not(sketchystudio *){
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(95, 40, 255);
+}
+p:not(sketchystudio *){
+    line-height: 25px;
+    margin-top: 0;
+    color: rgb(175,175,175);
+}
+img:not(sketchystudio *){
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    pointer-events: none;
+}
+button:not(sketchystudio *){
+    background-color: var(--b2);
+    border-radius: 4px;
+    border: 1px solid var(--darkgray);
+    color: var(--f0);
+    padding: 5px 15px;
+    width: fit-content;
+    transition: all 100ms;
+    font-family: sans-serif;
+}
+button:hover:not(sketchystudio *){
+    border-color: rgb(0,150,255);
+    background-color: rgb(0,75,255);
+    cursor: pointer;
+}
+button:disabled:not(sketchystudio *){
+    border-color: var(--gray);
+    background-color: var(--darkgray);
+    cursor: not-allowed;
+    color: var(--gray);
+}
+button.marked:not(sketchystudio *){
+    border-color: springgreen;
+    background-color: rgb(0, 170, 100);
+    border-radius: 24px;
+    padding: 5px 25px;
+    transition: all 250ms;
+}
+button.marked:hover:not(sketchystudio *){
+    border-color: rgb(95, 40, 255);
+    background-color: rgb(80, 0, 255);
+}
+button.marked:disabled:not(sketchystudio *){
+    border-color: var(--b3);
+    background-color: var(--darkgray);
+    cursor: not-allowed;
+    color: var(--gray);
+}
+/* button.marked:hover{
+    border-color: rgb(255, 0, 220);
+    background-color: rgb(175, 0, 150);
+} */
+/* button.marked{
+    border-color: rgb(0,150,255);
+    background-color: rgb(0,75,255);
+}
+button.marked:hover{
+    border-color: rgb(150, 100, 255);
+    background-color: rgb(100,75,255);
+    cursor: pointer;
+} */
+
+a.marked:not(sketchystudio *){
+    color: mediumspringgreen;
+}
+a.marked:hover:not(sketchystudio *){
+    color:darkturquoise;
+}
+input[type="checkbox"]:not(sketchystudio *){
+    width: 25px;
+    height: 25px;
+    appearance: none;
+    position: relative;
+    outline: none;
+}
+input[type="checkbox"]:hover:not(sketchystudio *){
+    cursor: pointer;
+}
+input[type="checkbox"]:focus:not(sketchystudio *){
+    outline: none;
+}
+input[type="checkbox"]:checked:not(sketchystudio *){
+    background-color: springgreen;
+    border-color: rgb(50, 255, 150);
+}
+input[type="checkbox"]:checked::after:not(sketchystudio *){
+    content: '\2714';
+	position: absolute;
+	color: var(--f0);
+    font-size: 16px;
+    font-weight: bold;
+    top: -1px;
+    left: 6px;
+}
+.input-searchbar:not(sketchystudio *){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+select option:not(sketchystudio *){
+    background-color: var(--b2);
+    color: var(--f0);
+    transition: all 100ms;
+    padding: 5px;
+}
+select option:hover:not(sketchystudio *){
+    background-color: rgb(0,75,255);
+    cursor: pointer;
+}
+select:hover:not(sketchystudio *){
+    cursor: pointer;
+}
+input:not(sketchystudio *), select:not(sketchystudio *){
+    background-color: var(--b2);
+    border-radius: 4px;
+    border: 1px solid var(--darkgray);
+    color: var(--f0);
+    padding: 5px;
+    width: 250px;
+    transition: all 100ms;
+    outline: 2px solid transparent;
+    font-size: inherit;
+}
+input:hover:not(sketchystudio *), input:not(input[type="checkbox"]):focus:not(sketchystudio *), select:hover:not(sketchystudio *), select:focus:not(sketchystudio *){
+    border-color: var(--gray);
+    background-color: var(--b3);
+}
+input:focus:not(sketchystudio *){
+    outline: 2px solid var(--darkgray);
+}
+input::placeholder:not(sketchystudio *){
+    color: var(--gray);
+}
+input::-webkit-inner-spin-button:not(sketchystudio *){
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-searchbar input:not(sketchystudio *){
+    border-width: 1px 0 1px 1px;
+    border-radius: 4px 0 0 4px;
+    width: 200px;
+}
+.input-searchbar button:not(sketchystudio *){
+    border-radius: 0 4px 4px 0;
+    flex: 0.1;
+    width: 50px;
+}
+.input-viewable:not(sketchystudio *){
+    display: flex;
+    justify-content: center;
+}
+.input-viewable input:not(sketchystudio *){
+    border-width: 1px 0 1px 1px;
+    border-radius: 4px 0 0 4px;
+    width: 200px;
+}
+.input-viewable button:not(sketchystudio *){
+    border-radius: 0 4px 4px 0;
+    flex: 0.1;
+    width: 50px;
+}
+.input-validator.invalid .input-viewable button:not(sketchystudio *){
+    border-color: red;
+}
+.input-validator:not(sketchystudio *){
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.input-validator p:not(sketchystudio *){
+    margin: 0;
+    margin-left: 1px;
+    font-size: 12px;
+    line-height: 20px;
+    position: absolute;
+    top: -18px;
+    left: 0;
+    z-index: 5;
+}
+.input-validator.invalid p:not(sketchystudio *){
+    color: red;
+}
+.input-validator.invalid input:not(sketchystudio *){
+    border-color: red;
+}
+.input-validator.invalid input:focus:not(sketchystudio *){
+    outline-color: rgb(255, 50, 50);
+}
+.input-validator.valid .input-viewable button:not(sketchystudio *){
+    border-color: springgreen;
+}
+.input-validator:not(sketchystudio *){
+    display: flex;
+    flex-direction: column;
+}
+.input-validator.valid p:not(sketchystudio *){
+    color: springgreen;
+}
+.input-validator.valid input:not(sketchystudio *){
+    border-color: springgreen;
+}
+.input-validator.valid input:focus:not(sketchystudio *){
+    outline-color: rgb(50, 255, 150);
+}
+header:not(sketchystudio *){
+    padding: 20px var(--padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    position: sticky;
+    z-index: 100;
+    transition: all 100ms;
+    box-shadow: none;
+    font-size: 24px;
+    background-color: transparent;
+}
+header .left:not(sketchystudio *), header .right:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+header .left .title:not(sketchystudio *){
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    transition: all 100ms;
+    font-family: "IBM Plex Mono", cursive;
+    padding: 5px;
+    border-radius: 6px;
+}
+header .left .title p:not(sketchystudio *){
+    margin: 0;
+    font-size: inherit;
+    color: var(--f0);
+}
+header .left .title:hover:not(sketchystudio *), header .right .bi-list:hover:not(sketchystudio *){
+    cursor: pointer;
+    background-color: var(--darkgray);
+}
+header .left .title img:not(sketchystudio *){
+    width: 32px; 
+    height: 32px;
+}
+header .right .bi-list:not(sketchystudio *){
+    transition: all 100ms;
+    font-size: 28px;
+    border-radius: 6px;
+    padding: 0 5px;
+    line-height: 35px;
+}
+.header-scrolling:not(sketchystudio *){
+    box-shadow: 0 2px 4px var(--bx0);
+    background-color: var(--b1);
+}
+.dialog:not(sketchystudio *){
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 100ms;
+}
+.dialog .content:not(sketchystudio *){
+    z-index: 502;
+    background-color: var(--b0);
+    border: 1px solid var(--darkgray);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px var(--bx0);
+    min-width: 400px;
+    animation: fadein 1s;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+    position: relative;
+    color: var(--f0);
+}
+.dialog .content .bi-x-lg:not(sketchystudio *){
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    color: var(--hover);
+}
+.dialog .content .bi-x-lg:hover:not(sketchystudio *){
+    background-color: var(--b2);
+    color: var(--f0);
+    cursor: pointer;
+}
+.dialog .content .crow:not(sketchystudio *){ 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.dialog .content .crow p:not(sketchystudio *){
+    margin: 0;
+}
+.dialog .content h2:not(sketchystudio *){
+    border: 1px solid white;
+    border-width: 0 0 1px 0;
+    padding: 10px 0 25px 0;
+    width: 100%;
+    margin: 0;
+}
+.dialog .content h2:not(sketchystudio *), .dialog .content p:not(sketchystudio *){
+    text-align: center;
+    margin-bottom: 0;
+}
+.dialog .content button:not(sketchystudio *){
+    width: 100%;
+}
+.dialog .background:not(sketchystudio *){
+    z-index: 501;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.5);
+}
+.coffcanvas:not(sketchystudio *){
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    display: flex;
+    justify-content: end;
+}
+.coffcanvas .content:not(sketchystudio *){
+    z-index: 502;
+    background-color: var(--b0);
+    border: 1px solid var(--darkgray);
+    border-width: 0 0 0 1px;
+    padding: 35px;
+    box-shadow: -5px 0 8px var(--bx0);
+    width: 400px;
+    background-image: linear-gradient(340deg, var(--b1) 60%, var(--b2));
+    background-attachment: fixed;
+}
+.coffcanvas .content .options:not(sketchystudio *){
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.coffcanvas .content .options > *:not(sketchystudio *){
+    animation: dropIn 750ms;
+}
+.coffcanvas .content .options .links:not(sketchystudio *){
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.coffcanvas .content .options .links a:not(sketchystudio *){
+    font-size: 18px;
+    border: 1px solid springgreen;
+    background-color: rgb(0, 170, 100);
+    border-radius: 24px;
+    padding: 5px 25px;
+    transition: all 250ms;
+    color: var(--f0);
+}
+.coffcanvas .content .options .links a:hover:not(sketchystudio *){
+    text-decoration: none;
+    border-color: rgb(95, 40, 255);
+    background-color: rgb(80, 0, 255);
+}
+.coffcanvas .content .options .links a .bi:not(sketchystudio *){
+    margin-right: 5px;
+}
+.coffcanvas .background:not(sketchystudio *){
+    z-index: 501;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.35);
+}
+.coffcanvas .top:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.coffcanvas .top h2:not(sketchystudio *){
+    width: fit-content;
+    margin: 0;
+    font-family: "IBM Plex Mono", cursive;
+    font-weight: normal;
+}
+.coffcanvas .top .bi-x-lg:not(sketchystudio *){
+    font-size: 25px;
+    border-radius: 6px;
+    padding: 0 5px;
+    transition: all 100ms;
+    color: rgb(175,175,175);
+}
+.coffcanvas .top .bi-x-lg:hover:not(sketchystudio *){
+    background-color: var(--b3);
+    color: var(--f0);
+    cursor: pointer;
+}
+.notification:not(sketchystudio *){
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 500px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: all 100ms;
+    border: 1px solid  var(--darkgray);
+    background-color: var(--b0);
+    padding: 20px;
+    box-shadow: 2px 2px 4px var(--bx0);
+    z-index: 600;
+}
+.notification:hover:not(sketchystudio *){
+    border: 1px solid var(--darkgray);
+    transform: scale(1.025);
+    cursor: pointer;
+    background-color: var(--b1);
+}
+.notification div:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.notification h2:not(sketchystudio *){
+    font-size: 30px;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.notification p:not(sketchystudio *){
+    line-height: 25px;
+    word-break: break-word;
+    margin: 0;
+}
+.notification i:not(sketchystudio *){
+    font-size: 20px;
+    padding: 5px 8px;
+    height: fit-content;
+    border-radius: 6px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.notification i:hover:not(sketchystudio *){
+    background-color: var(--b2);
+}
+.success, .success:hover:not(sketchystudio *){
+    color: springgreen !important;
+    border-color: springgreen !important;
+}
+.error:not(sketchystudio *), .error:hover:not(sketchystudio *){
+    color: red !important;
+    border-color: red !important;
+}
+.warning:not(sketchystudio *), .warning:hover:not(sketchystudio *){
+    color: orange !important;
+    border-color: orange !important;
+}
+.note:not(sketchystudio *), .note:hover:not(sketchystudio *){
+    color: aqua !important;
+    border-color: aqua !important;
+}
+@keyframes notificationSlideIn {
+    from{
+        right: -1000px;
+    }
+    to{
+        right: 25px;
+    }
+}
+@keyframes notificationSlideOut {
+    from{
+        right: 25px;
+    }
+    to{
+        right: -1000px;
+    }
+}
+@keyframes dropIn {
+    0%{
+        translate: 0 -25px;
+        opacity: 0;
+    }
+    1%{
+        translate: 0 -25px;
+        opacity: 0;
+    }
+    100%{
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+.bold:not(sketchystudio *){
+    font-weight: bold;
+}
+.italic:not(sketchystudio *){
+    font-style: italic;
+}

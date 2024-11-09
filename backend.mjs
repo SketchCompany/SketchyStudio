@@ -7,6 +7,7 @@ import Studio from "./studio.mjs"
 
 const studio = new Studio()
 const router = express.Router()
+const router2 = express.Router()
 router.use(express.json())
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -123,7 +124,7 @@ router.get("/project/:name", authenticate, async (req, res) => {
 
 router.get("/project/:name/files", authenticate, async (req, res) => {
     try{
-        const args = {name: req.params.name}
+        const args = req.params
         const userData = await studio.userData({id: req.id})
         const response = await studio.getProject(userData, args)
 
@@ -161,4 +162,39 @@ router.get("/project/:name/files", authenticate, async (req, res) => {
     }
 })
 
-export default {router, studio}
+router2.get("/:id/:name/files", async (req, res) => {
+    try{
+        const args = req.params
+        const userData = await studio.userData({id: args.id})
+        const response = await studio.getProject(userData, args)
+
+        if(response){
+            const project = response
+            const fileName = req.query.name
+            if(studio.exists(project.project_dir + "/" + fileName)){
+                res.status(200).sendFile(project.project_dir + "/" + fileName)
+            }
+            else{
+                res.status(400).json({ 
+                    status: 0,
+                    data: "file not found"
+                })
+            }
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response
+            })
+        }
+    }
+    catch(err){
+        console.error(req.path, err)
+        res.status(500).json({
+            status: 0,
+            data: err.toString()
+        })
+    }
+})
+
+export default {router, router2, studio}
