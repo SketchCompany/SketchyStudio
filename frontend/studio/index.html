@@ -88,6 +88,10 @@
             $(".create").click(createProject)
 
             // load projects
+            getProjects()
+        })
+
+        async function getProjects(){
             $(".projectsContainer")
             const projects = (await authGet("/b/projects")).projects
             for (let i = 0; i < projects.length; i++) {
@@ -96,9 +100,13 @@
                 const iframe = $(document.createElement("iframe")).attr("src", "/studio/" + project.name).attr("frameborder", "0").attr("scrolling", "no").attr("sandbox", "")
                 const iframeHolder = $(document.createElement("div")).addClass("iframeHolder").append(iframe)
                 const name = $(document.createElement("p")).html(project.name)
-                const projectDiv = $(document.createElement("div")).addClass("project").attr("title", project.description).attr("id", id).append([iframeHolder, name])
+                const projectDiv = $(document.createElement("div")).addClass("project").attr("title", project.description).attr("id", id).attr("index", i).append([iframeHolder, name])
                 projectDiv.click(() => openProject(project))
                 $(".projectsContainer").append(projectDiv)
+                createCtxMenu(".project", "project", `
+                    <button><span class="bi bi-box-arrow-up-right"></span> Öffnen</button>
+                    <button><span class="bi bi-trash"></span> Löschen</button>
+                `, projectCtxMenu)
                 // const timeout = setTimeout(() => {
                 //     $("#" + id).remove()
                 // }, 1000)
@@ -106,7 +114,24 @@
                 //     clearTimeout(timeout)
                 // })
             }
-        })
+        }
+
+        async function projectCtxMenu(i, element){
+            const index = $(element).attr("index")
+            if(i == 0){
+                $(element).click()
+            }
+            else if(i == 1){
+                const res = await authSend("/b/remove", {index}, true)
+                if(res.status == 1){
+                    notify("Projekt gelöscht", "Das Projekt wurde gelöscht.", "success")
+                    $(element).remove()
+                }
+                else{
+                    notify("Fehlgeschlagen", res.data, "error", 10000)
+                }
+            }
+        }
 
         function openProject(project){
             openSite("/studio/" + project.name)
@@ -199,6 +224,7 @@
                     if(res.status == 1){
                         console.log(res)
                         removeDialog(dialog)
+                        getProjects()
                     }
                     else{
                         notify("Fehlgeschlagen", res.data)

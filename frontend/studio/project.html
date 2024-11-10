@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
 
     <!-- imports from project -->
 </head>
-<body>
+<body class="default">
     <sketchystudio>
 
     </sketchystudio>
@@ -31,11 +31,11 @@
     <script>
         $(document).ready(async function(){
             const sketchyStudio = new SketchyStudio()
-            const dialog = sketchyStudio.createDialog("Loading", "", ``)
+            const dialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
 
             const paths = location.pathname.replace("/", "").split("/")
             console.log("paths", paths)
-            const projectName = paths[2 - 1]
+            const projectName = decodeURI(paths[2 - 1])
             document.title = projectName + " | Sketchy Studio"
             const projectUrl = "/b/project/" + projectName
             let lastProject = localStorage.getItem("lastProject")
@@ -49,18 +49,29 @@
                     console.log(placeholder)
                     document.title = placeholder.querySelector("title").innerHTML + " | Sketchy Studio"
                     $("html").attr("lang", placeholder.querySelector("html").getAttribute("lang"))
-                    $("head").append(placeholder.querySelector("head").innerHTML)
+                    $("head").append([placeholder.querySelector("head").innerHTML, $(document.createElement("style")).html(lastProject.css)])
                     $("sketchystudio").append(placeholder.querySelector("body").innerHTML)
+                    $("body").removeClass("default")
                     loaded = true
                     sketchyStudio.removeDialog(dialog)
                 }
             }
 
-            setTimeout(async function(){
-                let html = await sketchyStudio.authGet(projectUrl + "/files?name=index.html", true)
-                if(html.status == 0) sketchyStudio.notify("Fehlgeschlagen", html.data, "error", 10000)
-                else html = html.data
-
+            let html = await sketchyStudio.authGet(projectUrl + "/files?name=index.html", true)
+            let css = await sketchyStudio.authGet(projectUrl + "/files?name=index.css", true)
+            if(html.status == 0){
+                sketchyStudio.notify("Fehlgeschlagen", html.err, "error", 10000)
+                console.error(html.err)
+                sketchyStudio.removeDialog(dialog)
+                const dialog2 = sketchyStudio.createDialog("Laden Fehlgeschlagen", "Das laden des Projektes ist fehlgeschlagen, aufgrund folgendes Fehlers:", `<p class="bold">${html.err}</p>`, "error", 450)
+                $(dialog2 + "-cancel").click(function(){
+                    sketchyStudio.openSite("/studio")
+                })
+                return
+            }
+            else{
+                html = html.data
+                css = css.data
                 if(!loaded){
                     const placeholder = new DOMParser().parseFromString(html, "text/html")
                     console.log(placeholder)
@@ -68,12 +79,15 @@
                     $("html").attr("lang", placeholder.querySelector("html").getAttribute("lang"))
                     $("head").append(placeholder.querySelector("head").innerHTML)
                     $("sketchystudio").append(placeholder.querySelector("body").innerHTML)
+                    if(css.status == 0) sketchyStudio.notify("Fehlgeschlagen", css, "error", 10000)
+                    else $("head").append($(document.createElement("style")).html(css))
                 }
+                $("body").removeClass("default")
                 sketchyStudio.removeDialog(dialog)
 
-                localStorage.setItem("lastProject", JSON.stringify({name: projectName, html}))
+                localStorage.setItem("lastProject", JSON.stringify({name: projectName, html, css}))
                 console.log("updated project in localStorage")
-            }, 2000)
+            }
 
             if(sketchyStudio.isMobile()){
                 const style = $(document.createElement("style"))

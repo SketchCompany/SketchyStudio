@@ -96,11 +96,39 @@ router.get("/projects", authenticate, async (req, res) => {
 
 router.get("/project/:name", authenticate, async (req, res) => {
     try{
-        const args = {name: req.params.name}
+        const args = req.params
         const userData = await studio.userData({id: req.id})
         const response = await studio.getProject(userData, args)
 
         if(response){
+            res.status(200).json({
+                status: 1,
+                data: response
+            })
+        }
+        else{
+            res.status(500).json({ 
+                status: 0,
+                data: response.data
+            })
+        }
+    }
+    catch(err){
+        console.error(req.path, err)
+        res.status(500).json({
+            status: 0,
+            data: err.toString()
+        })
+    }
+})
+
+router.post("/remove", authenticate, async (req, res) => {
+    try{
+        const args = req.body
+        const userData = await studio.userData({id: req.id})
+        const response = await studio.removeProject(userData, args)
+        
+        if(!response){
             res.status(200).json({
                 status: 1,
                 data: response

@@ -60,7 +60,7 @@ export default class Functions{
                     }
                     body{
                         background-color: var(--color-background-dark);
-                        color: var(--color-font);
+                        color: var(--color-font-dark);
                         font-family: "Open Sans", sans-serif;
                         margin: 0;
                         padding: 0;
@@ -99,7 +99,7 @@ export default class Functions{
                         <title>${args.name} - ${userData.user}</title>
                     </head>
                     <body>
-                        <h1>{args.name}</h1>
+                        <h1>${args.name}</h1>
                         <p>Hover über die verschiedenen Elemente und klicke sie an um sie zu bearbeiten.</p>
                     </body>
                     </html>
@@ -189,6 +189,34 @@ export default class Functions{
             }
             catch(err){
                 console.error("getFileFromProject:", err)
+                cb({
+                    status: 0, 
+                    data: err
+                })
+            }
+        })
+    }
+
+    removeProject(userData, args){
+        return new Promise(async cb => {
+            try{
+                const studioData = JSON.parse(userData.studio)
+                if(studioData.length < args.index){
+                    cb({status: 0, err: "Das Projekt mit dem Index " + args.index + " konnte nicht gefunden werden."})
+                }
+                const project = studioData[args.index]
+                studioData.splice(args.index, 1)
+
+                await remove(project.project_dir)
+
+                userData.studio = JSON.stringify(studioData)
+                const updateResponse = await send("https://api.sketch-company.de/u/update", userData)
+                console.log("createProject: updated account")
+                
+                cb()
+            }
+            catch(err){
+                console.error("removeProject:", err)
                 cb({
                     status: 0, 
                     data: err

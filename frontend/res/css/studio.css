@@ -13,6 +13,9 @@
     border-radius: 6px;
     transition: all 100ms;
 }
+.projects .projectsContainer .project *{
+    pointer-events: none;
+}
 .projects .projectsContainer .project .iframeHolder, .projects .projectsContainer .create div{
     background-color: var(--b0);
     border-radius: 6px;

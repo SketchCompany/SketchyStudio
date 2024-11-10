@@ -456,3 +456,89 @@ function removeDialog(id){
     enableScroll()
     $(id).remove()
 }
+let clicked
+/**
+ * 
+ * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
+ * @param {string} id the id or name of the contextmenu, which is used for removing the contextmenu
+ * @param {string} elements the elements in the contextmenu as ``` `` ``` string
+ * @param {function} event the callback, which is called when one of the buttons is clicked and provides two paramters: ```i``` (the index of the button of the contextmenu) and ```element``` (the element that was right clicked)
+ * @param {Array<string>} blocked the list of blocked elements that cannot trigger the contextmenu
+ */
+function createCtxMenu(name, id, elements, event, blocked){
+    $("body").prepend(`
+        <div id="` + id + `-ctx-menu" class="context-menu" style="display: none;"></div>
+    `)
+
+    $("#" + id + "-ctx-menu").append(elements)
+    $("#" + id + "-ctx-menu").children().last().addClass("lastItem")
+    $("#" + id + "-ctx-menu").on("mouseleave", function(e){
+        $("#" + id + "-ctx-menu").css("display", "none")
+    })
+    $("#" + id + "-ctx-menu").on("contextmenu", function(e){
+        e.stopPropagation()
+    })
+
+    $("#" + id + "-ctx-menu").children().each((i, element) => {
+        if($(element).attr("listener")) return
+        $(element).attr("listener", "true")
+        $(element).click(() => {
+            event(i, clicked)
+            $("#" + id + "-ctx-menu").css("display", "none")
+        })
+    })
+
+    $(name).on("contextmenu", function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        if(blocked){
+            for (let i = 0; i < blocked.length; i++) {
+                const element = blocked[i];
+                if(e.target.classList.contains(element)){
+                    return
+                }
+            }
+        }
+
+        const {clientX: mouseX, clientY: mouseY} = e
+
+        $("#" + id + "-ctx-menu").css("top", mouseY - 20 + "px")
+        $("#" + id + "-ctx-menu").css("left", mouseX - 20 + "px")
+        $("#" + id + "-ctx-menu").css("display", "block")
+        clicked = e.target
+    })
+}
+/**
+ * update a context menu by its name and id and optional provide a list of elements that are blocked
+ * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
+ * @param {string} id the id or name of the contextmenu, which is used for removing the contextmenu
+ * @param {Array<string>} blocked the list of blocked elements that cannot trigger the contextmenu
+ */
+function updateCtxMenu(name, id, blocked){
+    $(name).on("contextmenu", function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        if(blocked){
+            for (let i = 0; i < blocked.length; i++) {
+                const element = blocked[i];
+                if(e.target.classList.contains(element)){
+                    return
+                }
+            }
+        }
+
+        const {clientX: mouseX, clientY: mouseY} = e
+
+        $("#" + id + "-ctx-menu").css("top", mouseY - 20 + "px")
+        $("#" + id + "-ctx-menu").css("left", mouseX - 20 + "px")
+        $("#" + id + "-ctx-menu").css("display", "block")
+        clicked = e.target
+    })
+}
+/**
+ * remove a created context menu by its id
+ * @param {string} id 
+ */
+function removeCtxMenu(id){
+    $("#" + id + "-ctx-menu").remove()
+}

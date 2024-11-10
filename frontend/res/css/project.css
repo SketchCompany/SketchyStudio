@@ -33,6 +33,10 @@ html:not(sketchystudio *){
     background-color: var(--b3);
     cursor: pointer;
 }
+.default:not(sketchystudio *){
+    background-color: var(--b0);
+    color: var(--f0);
+}
 main:not(sketchystudio *){
     padding: 2rem var(--padding);
     margin-top: 50px;
@@ -353,6 +357,7 @@ header .right .bi-list:not(sketchystudio *){
     gap: 25px;
     position: relative;
     color: var(--f0);
+    font-family: "Open Sans", sans-serif;
 }
 .dialog .content .bi-x-lg:not(sketchystudio *){
     position: absolute;
@@ -488,8 +493,7 @@ header .right .bi-list:not(sketchystudio *){
     width: 500px;
     height: 150px;
     overflow: hidden;
-    border-radius: 6px;
-    transition: all 100ms;
+    border-radius: 12px;
     border: 1px solid  var(--darkgray);
     background-color: var(--b0);
     padding: 20px;
@@ -517,18 +521,19 @@ header .right .bi-list:not(sketchystudio *){
     line-height: 25px;
     word-break: break-word;
     margin: 0;
+    font-family: "Open Sans", sans-serif;
 }
 .notification i:not(sketchystudio *){
-    font-size: 20px;
-    padding: 5px 8px;
-    height: fit-content;
+    padding: 8px 8px;
     border-radius: 6px;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 3px;
+    right: 3px;
+    color: var(--hover);
 }
 .notification i:hover:not(sketchystudio *){
     background-color: var(--b2);
+    color: var(--f0);
 }
 .success, .success:hover:not(sketchystudio *){
     color: springgreen !important;
@@ -581,4 +586,32 @@ header .right .bi-list:not(sketchystudio *){
 }
 .italic:not(sketchystudio *){
     font-style: italic;
+}
+.context-menu:not(sketchystudio *){
+    background-color: var(--b2);
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid var(--darkgray);
+    position: fixed;
+    z-index: 1000;
+    width: 250px;
+    box-shadow: 2px 4px 4px var(--bx0);
+    display: flex;
+    flex-direction: column;
+}
+.context-menu div:not(sketchystudio *), .context-menu button:not(sketchystudio *){
+    border: 1px solid var(--darkgray);
+    border-width: 0 0 1px 0;
+    padding: 5px;
+    transition: all 100ms;
+    width: 100%;
+    text-align: left;
+}
+.context-menu div:hover:not(sketchystudio *), .context-menu button:hover:not(sketchystudio *){
+    background-color: var(--b3);
+    border-radius: 6px;
+    cursor: pointer;
+}
+.lastItem:not(sketchystudio *){
+    border-width: 0 !important;
 }

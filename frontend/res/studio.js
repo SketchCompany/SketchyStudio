@@ -282,6 +282,31 @@ class SketchyStudio{
         this.setInputFields()
         return "#" + id
     }
+        /**
+     * creates an dialog with an custom ```title```, ```message``` and ```elements```. You can also set the width and height
+     * @param {string} title the headline of the dialog
+     * @param {string} message the description of the dialog
+     * @param {string} elements the custom elements to add in a string with the ``` `` ``` characters
+     * @param {string} type the type of the dialog: ```error```, ```warning```, ```note``` and ```success```
+     * @param {number} width the width of the dialog window in px
+     * @param {number} height the height of the dialog window in px
+     * @returns {string} the selector as id of the created dialog
+     */
+        createDialog(title, message, elements, type, width, height){
+            const id = title.replaceAll(" ", "_") + "-dialog"
+            const headline = $(document.createElement("h2")).html(title)
+            const description = $(document.createElement("p")).html(message)
+            const cancel = $(document.createElement("i")).attr("id", title.replaceAll(" ", "_") + "-dialog-cancel").addClass(["bi", "bi-x-lg"]).click(() => this.removeDialog("#" + id))
+            const content = $(document.createElement("div")).addClass(["content", type]).append([headline, description, elements, cancel])
+            if(width) content.css("width", width + "px")
+            if(height) content.css("height", height + "px")
+            const background = $(document.createElement("div")).addClass("background")
+            const dialog = $(document.createElement("div")).attr("id", id).addClass("dialog").append([background, content])
+            $("body").prepend(dialog)
+            this.disableScroll()
+            this.setInputFields()
+            return "#" + id
+        }
     /**
      * removes a dialog with a specific ```id```
      * @param {string} id the id of the dialog to remove
@@ -299,8 +324,6 @@ class SketchyStudio{
         $("body").css("overflow", "auto")
         $("body").css("height", "fit-content")
     }
-
-    // disable spellcheck and autocomplete attributes for input fields
     setInputFields(){
         const inputs = $("input").map(function(){return this}).get()
         for (let i = 0; i < inputs.length; i++) {
@@ -311,7 +334,6 @@ class SketchyStudio{
             element.attr("checked")
         }
     }
-
     toggleOffcanvas(){
         if($(".coffcanvas").css("display") == "none"){
             $(".coffcanvas").css("display", "flex")
@@ -321,5 +343,91 @@ class SketchyStudio{
             $(".coffcanvas").css("display", "none")
             this.enableScroll()
         }
+    }
+    clicked
+    /**
+     * 
+     * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
+     * @param {string} id the id or name of the contextmenu, which is used for removing the contextmenu
+     * @param {string} elements the elements in the contextmenu as ``` `` ``` string
+     * @param {function} event the callback, which is called when one of the buttons is clicked and provides two paramters: ```i``` (the index of the button of the contextmenu) and ```element``` (the element that was right clicked)
+     * @param {Array<string>} blocked the list of blocked elements that cannot trigger the contextmenu
+     */
+    createCtxMenu(name, id, elements, event, blocked){
+        $("body").prepend(`
+            <div id="` + id + `-ctx-menu" class="context-menu" style="display: none;"></div>
+        `)
+
+        $("#" + id + "-ctx-menu").append(elements)
+        $("#" + id + "-ctx-menu").children().last().addClass("lastItem")
+        $("#" + id + "-ctx-menu").on("mouseleave", function(e){
+            $("#" + id + "-ctx-menu").css("display", "none")
+        })
+        $("#" + id + "-ctx-menu").on("contextmenu", function(e){
+            e.stopPropagation()
+        })
+
+        $("#" + id + "-ctx-menu").children().each((i, element) => {
+            if($(element).attr("listener")) return
+            $(element).attr("listener", "true")
+            $(element).click(() => {
+                event(i, clicked)
+                $("#" + id + "-ctx-menu").css("display", "none")
+            })
+        })
+
+        $(name).on("contextmenu", function(e){
+            e.preventDefault()
+            e.stopPropagation()
+            if(blocked){
+                for (let i = 0; i < blocked.length; i++) {
+                    const element = blocked[i];
+                    if(e.target.classList.contains(element)){
+                        return
+                    }
+                }
+            }
+
+            const {clientX: mouseX, clientY: mouseY} = e
+
+            $("#" + id + "-ctx-menu").css("top", mouseY - 20 + "px")
+            $("#" + id + "-ctx-menu").css("left", mouseX - 20 + "px")
+            $("#" + id + "-ctx-menu").css("display", "block")
+            clicked = e.target
+        })
+    }
+    /**
+     * update a context menu by its name and id and optional provide a list of elements that are blocked
+     * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
+     * @param {string} id the id or name of the contextmenu, which is used for removing the contextmenu
+     * @param {Array<string>} blocked the list of blocked elements that cannot trigger the contextmenu
+     */
+    updateCtxMenu(name, id, blocked){
+        $(name).on("contextmenu", function(e){
+            e.preventDefault()
+            e.stopPropagation()
+            if(blocked){
+                for (let i = 0; i < blocked.length; i++) {
+                    const element = blocked[i];
+                    if(e.target.classList.contains(element)){
+                        return
+                    }
+                }
+            }
+
+            const {clientX: mouseX, clientY: mouseY} = e
+
+            $("#" + id + "-ctx-menu").css("top", mouseY - 20 + "px")
+            $("#" + id + "-ctx-menu").css("left", mouseX - 20 + "px")
+            $("#" + id + "-ctx-menu").css("display", "block")
+            clicked = e.target
+        })
+    }
+    /**
+     * remove a created context menu by its id
+     * @param {string} id 
+     */
+    removeCtxMenu(id){
+        $("#" + id + "-ctx-menu").remove()
     }
 }
