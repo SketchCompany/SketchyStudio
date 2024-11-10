@@ -28,6 +28,7 @@ html:not(sketchystudio *){
     background-color: var(--b2);
     width: 12px;
     border-radius: 5px;
+    transition: all 100ms;
 }
 ::-webkit-scrollbar-thumb:hover:not(sketchystudio *){
     background-color: var(--b3);
@@ -66,6 +67,7 @@ h3:not(sketchystudio *){
 a:not(sketchystudio *){
     text-decoration: none;
     color: springgreen;
+    transition: all 100ms;
 }
 a:hover:not(sketchystudio *){
     text-decoration: underline;
@@ -147,6 +149,7 @@ input[type="checkbox"]:not(sketchystudio *){
     appearance: none;
     position: relative;
     outline: none;
+    transition: all 100ms;
 }
 input[type="checkbox"]:hover:not(sketchystudio *){
     cursor: pointer;
@@ -366,6 +369,7 @@ header .right .bi-list:not(sketchystudio *){
     padding: 5px 8px;
     border-radius: 6px;
     color: var(--hover);
+    transition: all 100ms;
 }
 .dialog .content .bi-x-lg:hover:not(sketchystudio *){
     background-color: var(--b2);
@@ -499,6 +503,7 @@ header .right .bi-list:not(sketchystudio *){
     padding: 20px;
     box-shadow: 2px 2px 4px var(--bx0);
     z-index: 600;
+    transition: all 100ms;
 }
 .notification:hover:not(sketchystudio *){
     border: 1px solid var(--darkgray);
@@ -530,6 +535,7 @@ header .right .bi-list:not(sketchystudio *){
     top: 3px;
     right: 3px;
     color: var(--hover);
+    transition: all 100ms;
 }
 .notification i:hover:not(sketchystudio *){
     background-color: var(--b2);

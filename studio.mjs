@@ -1,9 +1,11 @@
 import fs from "fs"
 import path from 'path'
 import { fileURLToPath } from 'url'
+import NodeCache from "node-cache"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const chache = new NodeCache({stdTTL: 5, checkperiod: 1})
 const BASE_DIR = __dirname + "/"
 const PROFILES_DIR = BASE_DIR + "/profiles/"
 
@@ -244,12 +246,24 @@ export default class Functions{
     userData(identifierObject){
         return new Promise(async cb => {
             try{
-                const userData = await send("https://api.sketch-company.de/u/find", identifierObject)
-    
-                if(!userData.studio) userData.studio = "[]"
-    
-                console.log("userData: for", identifierObject)
-                cb(userData)
+                if(chache.has(identifierObject.id)){
+                    const userData = chache.get(identifierObject.id)
+                    if(!userData.studio) userData.studio = "[]"
+                    console.log("userData: from chache for", identifierObject)
+                    cb(userData)
+                }
+                else{
+                    const userData = await send("https://api.sketch-company.de/u/find", identifierObject)
+                    delete userData.password
+                    delete userData.email
+                    delete userData.configWebsites
+                    delete userData.recordId
+                    if(!userData.studio) userData.studio = "[]"
+                    chache.set(userData.id, userData)
+                    console.log("userData: from api for", identifierObject)
+                    console.log("userData: updated chache", chache.data)
+                    cb(userData)
+                }
             }
             catch(err){
                 console.error("userData:", err)
