@@ -143,6 +143,30 @@ a.marked:not(sketchystudio *){
 a.marked:hover:not(sketchystudio *){
     color:darkturquoise;
 }
+input[type="range"]:not(sketchystudio *){
+    cursor: w-resize;
+    padding: 2px 0;
+    margin: 0;
+    border: none;
+}
+input[type="range"]::-moz-range-progress {
+    background-color: springgreen; 
+}
+input[type="range"]::-moz-range-track {  
+    background-color: mediumspringgreen;
+}
+input[type="range"]::-ms-fill-lower {
+    background-color: springgreen; 
+}
+input[type="range"]::-ms-fill-upper {  
+    background-color: mediumspringgreen;
+}
+input[type="color"]:not(sketchystudio *){
+    padding: 1px 3px;
+}
+input[type="color"]:hover:not(sketchystudio *){
+    cursor: pointer;
+}
 input[type="checkbox"]:not(sketchystudio *){
     width: 25px;
     height: 25px;
@@ -188,7 +212,7 @@ select option:hover:not(sketchystudio *){
 select:hover:not(sketchystudio *){
     cursor: pointer;
 }
-input:not(sketchystudio *), select:not(sketchystudio *){
+input:not(sketchystudio *), select:not(sketchystudio *), textarea:not(sketchystudio *){
     background-color: var(--b2);
     border-radius: 4px;
     border: 1px solid var(--darkgray);
@@ -198,20 +222,22 @@ input:not(sketchystudio *), select:not(sketchystudio *){
     transition: all 100ms;
     outline: 2px solid transparent;
     font-size: inherit;
+    font-family: "Open Sans", sans-serif;
 }
-input:hover:not(sketchystudio *), input:not(input[type="checkbox"]):focus:not(sketchystudio *), select:hover:not(sketchystudio *), select:focus:not(sketchystudio *){
+textarea{
+    transition: none !important;
+    resize: vertical;
+    min-height: 40px;
+}
+input:hover:not(sketchystudio *), input:not(input[type="checkbox"]):focus:not(sketchystudio *), select:hover:not(sketchystudio *), select:focus:not(sketchystudio *), textarea:hover:not(sketchystudio *), textarea:focus:not(sketchystudio *){
     border-color: var(--gray);
     background-color: var(--b3);
 }
-input:focus:not(sketchystudio *){
+input:focus:not(input[type="range"]):not(sketchystudio *), textarea:focus:not(sketchystudio *){
     outline: 2px solid var(--darkgray);
 }
 input::placeholder:not(sketchystudio *){
     color: var(--gray);
-}
-input::-webkit-inner-spin-button:not(sketchystudio *){
-    -webkit-appearance: none;
-    margin: 0;
 }
 .input-searchbar input:not(sketchystudio *){
     border-width: 1px 0 1px 1px;
@@ -253,7 +279,7 @@ input::-webkit-inner-spin-button:not(sketchystudio *){
     position: absolute;
     top: -18px;
     left: 0;
-    z-index: 5;
+    z-index: 1000;
 }
 .input-validator.invalid p:not(sketchystudio *){
     color: red;
@@ -288,7 +314,7 @@ header:not(sketchystudio *){
     top: 0;
     left: 0;
     position: sticky;
-    z-index: 100;
+    z-index: 1200;
     transition: all 100ms;
     box-shadow: none;
     font-size: 24px;
@@ -339,14 +365,14 @@ header .right .bi-list:not(sketchystudio *){
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 500;
+    z-index: 1500;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 100ms;
 }
 .dialog .content:not(sketchystudio *){
-    z-index: 502;
+    z-index: 1502;
     background-color: var(--b0);
     border: 1px solid var(--darkgray);
     border-radius: 12px;
@@ -400,7 +426,7 @@ header .right .bi-list:not(sketchystudio *){
     width: 100%;
 }
 .dialog .background:not(sketchystudio *){
-    z-index: 501;
+    z-index: 1501;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -410,86 +436,92 @@ header .right .bi-list:not(sketchystudio *){
 .coffcanvas:not(sketchystudio *){
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    z-index: 500;
+    z-index: 1400;
     display: flex;
-    justify-content: end;
+    justify-content: start;
 }
 .coffcanvas .content:not(sketchystudio *){
-    z-index: 502;
+    z-index: 1402;
     background-color: var(--b0);
     border: 1px solid var(--darkgray);
-    border-width: 0 0 0 1px;
-    padding: 35px;
-    box-shadow: -5px 0 8px var(--bx0);
+    border-width: 0 1px 0 0;
+    padding: 10px 15px;
+    box-shadow: 5px 0 8px var(--bx0);
     width: 400px;
     background-image: linear-gradient(340deg, var(--b1) 60%, var(--b2));
     background-attachment: fixed;
 }
-.coffcanvas .content .options:not(sketchystudio *){
-    margin-top: 75px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
-.coffcanvas .content .options > *:not(sketchystudio *){
-    animation: dropIn 750ms;
-}
-.coffcanvas .content .options .links:not(sketchystudio *){
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.coffcanvas .content .options .links a:not(sketchystudio *){
-    font-size: 18px;
-    border: 1px solid springgreen;
-    background-color: rgb(0, 170, 100);
-    border-radius: 24px;
-    padding: 5px 25px;
-    transition: all 250ms;
-    color: var(--f0);
-}
-.coffcanvas .content .options .links a:hover:not(sketchystudio *){
-    text-decoration: none;
-    border-color: rgb(95, 40, 255);
-    background-color: rgb(80, 0, 255);
-}
-.coffcanvas .content .options .links a .bi:not(sketchystudio *){
-    margin-right: 5px;
-}
 .coffcanvas .background:not(sketchystudio *){
-    z-index: 501;
+    z-index: 1401;
     height: 100%;
     width: 100%;
     position: fixed;
-    backdrop-filter: blur(5px);
-    background-color: rgba(0,0,0,0.35);
+    background-color: rgba(0,0,0,0.2);
 }
 .coffcanvas .top:not(sketchystudio *){
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 50px;
 }
-.coffcanvas .top h2:not(sketchystudio *){
-    width: fit-content;
+.coffcanvas .top .title:not(sketchystudio *){
+    display: flex;
+    align-items: center;
+}
+.coffcanvas .top .title h3:not(sketchystudio *){
     margin: 0;
-    font-family: "IBM Plex Mono", cursive;
-    font-weight: normal;
 }
-.coffcanvas .top .bi-x-lg:not(sketchystudio *){
+.coffcanvas .top .title .bi-wrench-adjustable:not(sketchystudio *){
+    margin-right: 10px;
+    font-size: 20px;
+}
+.coffcanvas .top .bi-arrow-bar-left:not(sketchystudio *){
     font-size: 25px;
     border-radius: 6px;
     padding: 0 5px;
     transition: all 100ms;
     color: rgb(175,175,175);
 }
-.coffcanvas .top .bi-x-lg:hover:not(sketchystudio *){
+.coffcanvas .top .bi-arrow-bar-left:hover:not(sketchystudio *){
     background-color: var(--b3);
     color: var(--f0);
     cursor: pointer;
 }
+.coffcanvas .body:not(sketchystudio *){
+    overflow-y: auto;
+}
+.coffcanvas .body .crow:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0 10px 0;
+    border: 1px dashed var(--darkgray);
+    border-width: 0 0 1px 0;
+    font-size: 15px;
+}
+.coffcanvas .body .ccoulmn:not(sketchystudio *){
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.coffcanvas .body .crow p:not(sketchystudio *){
+    margin: 0;
+}
+.coffcanvas .body .crow .slider:not(sketchystudio *){
+    display: flex;
+    gap: 5px;
+}
+.coffcanvas .body .crow .slider input[type="text"][inputmode="numeric"]:not(sketchystudio *){
+    max-width: 30px;
+    max-height: 15px;
+}
+.coffcanvas .body .crow .slider input[type="range"]:not(sketchystudio *){
+    width: 100%;
+}
+/* .coffcanvas .body .crow textarea:not(sketchystudio *), .coffcanvas .body .crow input:not(sketchystudio *){
+} */
 .notification:not(sketchystudio *){
     position: fixed;
     bottom: 25px;
@@ -502,7 +534,7 @@ header .right .bi-list:not(sketchystudio *){
     background-color: var(--b0);
     padding: 20px;
     box-shadow: 2px 2px 4px var(--bx0);
-    z-index: 600;
+    z-index: 1600;
     transition: all 100ms;
 }
 .notification:hover:not(sketchystudio *){
@@ -599,7 +631,7 @@ header .right .bi-list:not(sketchystudio *){
     border-radius: 6px;
     border: 1px solid var(--darkgray);
     position: fixed;
-    z-index: 1000;
+    z-index: 2000;
     width: 250px;
     box-shadow: 2px 4px 4px var(--bx0);
     display: flex;
@@ -620,4 +652,10 @@ header .right .bi-list:not(sketchystudio *){
 }
 .lastItem:not(sketchystudio *){
     border-width: 0 !important;
+}
+
+sketchystudio *:hover, sketchystudio *.active{
+    border-radius: 6px;
+    border: 1px solid springgreen;
+    cursor: pointer;
 }

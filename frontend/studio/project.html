@@ -27,19 +27,57 @@
     <sketchystudio>
 
     </sketchystudio>
+    <div class="coffcanvas" style="display: none;">
+        <div class="content">
+            <div class="top">
+                <div class="title">
+                    <span class="bi bi-wrench-adjustable"></span>
+                    <h3>Tools</h3>
+                </div>
+                <span class="bi bi-arrow-bar-left" onclick="sketchyStudio.toggleOffcanvas()"></span>
+            </div>
+            <div class="body">
+                <div class="crow">
+                    <p>Text:</p>
+                    <textarea id="tool-content" placeholder="Der Text..."></textarea>
+                </div>
+                <div class="crow">
+                    <p>Schriftfarbe:<br>Transparenz:</p>
+                    <div class="ccoulmn">
+                        <input id="tool-color" type="color">
+                        <span class="slider">
+                            <input type="text" inputmode="numeric">
+                            <input id="tool-color-transparancy" type="range" min="0" max="100" value="100">
+                        </span>
+                    </div>
+                </div>
+                <div class="crow">
+                    <p>Hintergrundfarbe:<br>Transparenz:</p>
+                    <div class="ccoulmn">
+                        <input id="tool-background-color" type="color">
+                        <span class="slider">
+                            <input type="text" inputmode="numeric">
+                            <input id="tool-background-color-transparancy" type="range" min="0" max="100" value="100">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="background"></div>
+    </div>
     <script src="/res?f=studio.js"></script>
     <script>
-        $(document).ready(async function(){
-            const sketchyStudio = new SketchyStudio()
-            const dialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
+        const sketchyStudio = new SketchyStudio()
+        const paths = location.pathname.replace("/", "").split("/")
+        console.log("paths", paths)
+        const projectName = decodeURI(paths[2 - 1])
+        document.title = projectName + " | Sketchy Studio"
+        const projectUrl = "/b/project/" + projectName
+        let loaded = false
+        const dialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
 
-            const paths = location.pathname.replace("/", "").split("/")
-            console.log("paths", paths)
-            const projectName = decodeURI(paths[2 - 1])
-            document.title = projectName + " | Sketchy Studio"
-            const projectUrl = "/b/project/" + projectName
+        $(document).ready(async function(){
             let lastProject = localStorage.getItem("lastProject")
-            let loaded = false
             if(lastProject){
                 lastProject = JSON.parse(lastProject)
                 console.log(lastProject)
@@ -52,16 +90,31 @@
                     $("head").append([placeholder.querySelector("head").innerHTML, $(document.createElement("style")).html(lastProject.css)])
                     $("sketchystudio").append(placeholder.querySelector("body").innerHTML)
                     $("body").removeClass("default")
-                    loaded = true
                     sketchyStudio.removeDialog(dialog)
+                    loaded = true
                 }
             }
-            console.log(Math.floor(Date.now() - localStorage.getItem("lastCall")))
-            console.log(Math.floor(Date.now() - localStorage.getItem("lastCall")) >= 2000)
+
+            if(sketchyStudio.isMobile()){
+                const style = $(document.createElement("style"))
+                style.html(`
+                
+                `)
+                $("head").append(style)
+            }
+        })
+
+        window.onload = async function(){
             if(Math.floor(Date.now() - localStorage.getItem("lastCall")) >= 2000){
                 localStorage.setItem("lastCall", Date.now())
+                let altDialog 
+                const lazyTimeout = setTimeout(function(){
+                    altDialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
+                }, 100)
                 let html = await sketchyStudio.authGet(projectUrl + "/files?name=index.html", true)
                 let css = await sketchyStudio.authGet(projectUrl + "/files?name=index.css", true)
+                clearTimeout(lazyTimeout)
+                if(altDialog) sketchyStudio.removeDialog(altDialog)
                 if(html.status == 0){
                     sketchyStudio.notify("Fehlgeschlagen", html.err, "error", 10000)
                     console.error(html.err)
@@ -96,14 +149,10 @@
                 sketchyStudio.notify("Abgebrochen", "Es wurden keine neuen Projekt Daten geladen, da zu viele Anfragen gestellt worden sind.", "warning", 10000)
             }
 
-            if(sketchyStudio.isMobile()){
-                const style = $(document.createElement("style"))
-                style.html(`
-                
-                `)
-                $("head").append(style)
-            }
-        })
+            $("sketchystudio").children().each(function(i, element){
+                $(element).click(() => sketchyStudio.elementClicked(element))
+            })
+        }
     </script>
 </body>
 </html>

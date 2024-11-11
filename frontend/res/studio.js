@@ -292,21 +292,21 @@ class SketchyStudio{
      * @param {number} height the height of the dialog window in px
      * @returns {string} the selector as id of the created dialog
      */
-        createDialog(title, message, elements, type, width, height){
-            const id = title.replaceAll(" ", "_") + "-dialog"
-            const headline = $(document.createElement("h2")).html(title)
-            const description = $(document.createElement("p")).html(message)
-            const cancel = $(document.createElement("i")).attr("id", title.replaceAll(" ", "_") + "-dialog-cancel").addClass(["bi", "bi-x-lg"]).click(() => this.removeDialog("#" + id))
-            const content = $(document.createElement("div")).addClass(["content", type]).append([headline, description, elements, cancel])
-            if(width) content.css("width", width + "px")
-            if(height) content.css("height", height + "px")
-            const background = $(document.createElement("div")).addClass("background")
-            const dialog = $(document.createElement("div")).attr("id", id).addClass("dialog").append([background, content])
-            $("body").prepend(dialog)
-            this.disableScroll()
-            this.setInputFields()
-            return "#" + id
-        }
+    createDialog(title, message, elements, type, width, height){
+        const id = title.replaceAll(" ", "_") + "-dialog"
+        const headline = $(document.createElement("h2")).html(title)
+        const description = $(document.createElement("p")).html(message)
+        const cancel = $(document.createElement("i")).attr("id", title.replaceAll(" ", "_") + "-dialog-cancel").addClass(["bi", "bi-x-lg"]).click(() => this.removeDialog("#" + id))
+        const content = $(document.createElement("div")).addClass(["content", type]).append([headline, description, elements, cancel])
+        if(width) content.css("width", width + "px")
+        if(height) content.css("height", height + "px")
+        const background = $(document.createElement("div")).addClass("background")
+        const dialog = $(document.createElement("div")).attr("id", id).addClass("dialog").append([background, content])
+        $("body").prepend(dialog)
+        this.disableScroll()
+        this.setInputFields()
+        return "#" + id
+    }
     /**
      * removes a dialog with a specific ```id```
      * @param {string} id the id of the dialog to remove
@@ -429,5 +429,14 @@ class SketchyStudio{
      */
     removeCtxMenu(id){
         $("#" + id + "-ctx-menu").remove()
+    }
+
+    elementClicked(element){
+        this.openTools()
+    }
+
+    openTools(){
+        $(".coffcanvas").css("display", "flex")
+        this.disableScroll()
     }
 }
