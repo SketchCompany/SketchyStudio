@@ -5,7 +5,7 @@ import NodeCache from "node-cache"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const chache = new NodeCache({stdTTL: 10, checkperiod: 1})
+const chache = new NodeCache({stdTTL: 15, checkperiod: 1})
 const BASE_DIR = __dirname + "/"
 const PROFILES_DIR = BASE_DIR + "/profiles/"
 

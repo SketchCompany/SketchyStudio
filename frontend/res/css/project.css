@@ -16,21 +16,21 @@
 html:not(sketchystudio *){
     scroll-behavior: smooth;
 }
-::-webkit-scrollbar:not(sketchystudio *){
+::-webkit-scrollbar{
     background-color: var(--b1);
     width: 12px;
 }
-::-webkit-scrollbar-track:not(sketchystudio *){
+::-webkit-scrollbar-track{
     background-color: var(--b1);
     width: 12px;
 }
-::-webkit-scrollbar-thumb:not(sketchystudio *){
+::-webkit-scrollbar-thumb{
     background-color: var(--b2);
     width: 12px;
     border-radius: 5px;
     transition: all 100ms;
 }
-::-webkit-scrollbar-thumb:hover:not(sketchystudio *){
+::-webkit-scrollbar-thumb:hover{
     background-color: var(--b3);
     cursor: pointer;
 }
@@ -224,10 +224,11 @@ input:not(sketchystudio *), select:not(sketchystudio *), textarea:not(sketchystu
     font-size: inherit;
     font-family: "Open Sans", sans-serif;
 }
-textarea{
-    transition: none !important;
+textarea:not(sketchystudio *){
+    transition: none;
     resize: vertical;
     min-height: 40px;
+    width: 240px;
 }
 input:hover:not(sketchystudio *), input:not(input[type="checkbox"]):focus:not(sketchystudio *), select:hover:not(sketchystudio *), select:focus:not(sketchystudio *), textarea:hover:not(sketchystudio *), textarea:focus:not(sketchystudio *){
     border-color: var(--gray);
@@ -453,6 +454,10 @@ header .right .bi-list:not(sketchystudio *){
     width: 400px;
     background-image: linear-gradient(340deg, var(--b1) 60%, var(--b2));
     background-attachment: fixed;
+    resize: horizontal;
+    overflow: auto;
+    min-width: 400px;
+    max-width: 600px;
 }
 .coffcanvas .background:not(sketchystudio *){
     z-index: 1401;
@@ -465,7 +470,7 @@ header .right .bi-list:not(sketchystudio *){
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .coffcanvas .top .title:not(sketchystudio *){
     display: flex;
@@ -500,14 +505,17 @@ header .right .bi-list:not(sketchystudio *){
     border: 1px dashed var(--darkgray);
     border-width: 0 0 1px 0;
     font-size: 15px;
+    width: 100%;
 }
-.coffcanvas .body .ccoulmn:not(sketchystudio *){
+.coffcanvas .body .crow .ccoulmn:not(sketchystudio *){
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
 }
 .coffcanvas .body .crow p:not(sketchystudio *){
     margin: 0;
+    min-width: 150px;
 }
 .coffcanvas .body .crow .slider:not(sketchystudio *){
     display: flex;
@@ -517,11 +525,28 @@ header .right .bi-list:not(sketchystudio *){
     max-width: 30px;
     max-height: 15px;
 }
-.coffcanvas .body .crow .slider input[type="range"]:not(sketchystudio *){
+.coffcanvas .body .crow .secondary:not(sketchystudio *){
+    line-height: 40px;
+}
+.coffcanvas .body .crow .element-info:not(sketchystudio *){
+    font-size: 12px;
+}
+.coffcanvas .body .crow .grid:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 250px;
+}
+.coffcanvas .body .crow .grid input[type="text"][inputmode="numeric"]:not(sketchystudio *){
+    width: 102px;
+    height: 15px;
+}
+.coffcanvas .body .crow input:not(sketchystudio *),
+.coffcanvas .body .crow .grid:not(sketchystudio *),
+.coffcanvas .body .crow textarea:not(sketchystudio *){
     width: 100%;
 }
-/* .coffcanvas .body .crow textarea:not(sketchystudio *), .coffcanvas .body .crow input:not(sketchystudio *){
-} */
 .notification:not(sketchystudio *){
     position: fixed;
     bottom: 25px;
@@ -652,10 +677,4 @@ header .right .bi-list:not(sketchystudio *){
 }
 .lastItem:not(sketchystudio *){
     border-width: 0 !important;
-}
-
-sketchystudio *:hover, sketchystudio *.active{
-    border-radius: 6px;
-    border: 1px solid springgreen;
-    cursor: pointer;
 }

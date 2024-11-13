@@ -38,11 +38,23 @@
             </div>
             <div class="body">
                 <div class="crow">
-                    <p>Text:</p>
-                    <textarea id="tool-content" placeholder="Der Text..."></textarea>
+                    <div>
+                        <div>
+                            <p>Name:</p>
+                            <p id="tool-name"></p>
+                        </div>
+                        <div class="element-info">
+                            <p>Element:</p>
+                            <p id="tool-element"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="crow">
-                    <p>Schriftfarbe:<br>Transparenz:</p>
+                    <p>Text:</p>
+                    <textarea id="tool-content" placeholder="Inhalt des Elements..."></textarea>
+                </div>
+                <div class="crow">
+                    <p>Schriftfarbe:<br><span class="secondary">Transparenz:</span></p>
                     <div class="ccoulmn">
                         <input id="tool-color" type="color">
                         <span class="slider">
@@ -52,13 +64,22 @@
                     </div>
                 </div>
                 <div class="crow">
-                    <p>Hintergrundfarbe:<br>Transparenz:</p>
+                    <p>Hintergrundfarbe:<br><span class="secondary">Transparenz:</span></p>
                     <div class="ccoulmn">
                         <input id="tool-background-color" type="color">
                         <span class="slider">
                             <input type="text" inputmode="numeric">
                             <input id="tool-background-color-transparancy" type="range" min="0" max="100" value="100">
                         </span>
+                    </div>
+                </div>
+                <div class="crow">
+                    <p>Einrückung:</p>
+                    <div class="ccolumn grid">
+                        <input id="tool-padding-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-padding-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-padding-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-padding-bottom" type="text" inputmode="numeric" placeholder="Unten">
                     </div>
                 </div>
             </div>
@@ -144,6 +165,13 @@
                     localStorage.setItem("lastProject", JSON.stringify({name: projectName, html, css}))
                     console.log("updated project in localStorage")
                 }
+                $("head").append($(document.createElement("style")).html(`
+                    sketchystudio *:hover, sketchystudio *.active{
+                        border-radius: 6px;
+                        ooutline: 1px solid springgreen;
+                        cursor: pointer;
+                    }
+                `))
             }
             else{
                 sketchyStudio.notify("Abgebrochen", "Es wurden keine neuen Projekt Daten geladen, da zu viele Anfragen gestellt worden sind.", "warning", 10000)
