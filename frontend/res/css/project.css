@@ -75,7 +75,6 @@ a:hover:not(sketchystudio *){
     color: rgb(95, 40, 255);
 }
 p:not(sketchystudio *){
-    line-height: 25px;
     margin-top: 0;
     color: rgb(175,175,175);
 }
@@ -227,7 +226,7 @@ input:not(sketchystudio *), select:not(sketchystudio *), textarea:not(sketchystu
 textarea:not(sketchystudio *){
     transition: none;
     resize: vertical;
-    min-height: 40px;
+    min-height: 60px;
     width: 240px;
 }
 input:hover:not(sketchystudio *), input:not(input[type="checkbox"]):focus:not(sketchystudio *), select:hover:not(sketchystudio *), select:focus:not(sketchystudio *), textarea:hover:not(sketchystudio *), textarea:focus:not(sketchystudio *){
@@ -470,7 +469,7 @@ header .right .bi-list:not(sketchystudio *){
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 .coffcanvas .top .title:not(sketchystudio *){
     display: flex;
@@ -496,7 +495,7 @@ header .right .bi-list:not(sketchystudio *){
     cursor: pointer;
 }
 .coffcanvas .body:not(sketchystudio *){
-    overflow-y: auto;
+    padding: 20px 0;
 }
 .coffcanvas .body .crow:not(sketchystudio *){
     display: flex;
@@ -507,11 +506,29 @@ header .right .bi-list:not(sketchystudio *){
     font-size: 15px;
     width: 100%;
 }
+.coffcanvas .body .crow .crow-stack{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.coffcanvas .body .crow .crow-stack .crow-flex:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+}
 .coffcanvas .body .crow .ccoulmn:not(sketchystudio *){
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 100%;
+}
+.coffcanvas .body .crow.fill p:not(sketchystudio *){
+    min-width: fit-content;
+}
+.coffcanvas .body .crow.fill:not(sketchystudio *){
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
 }
 .coffcanvas .body .crow p:not(sketchystudio *){
     margin: 0;
@@ -520,16 +537,24 @@ header .right .bi-list:not(sketchystudio *){
 .coffcanvas .body .crow .slider:not(sketchystudio *){
     display: flex;
     gap: 5px;
+    width: 100%;
 }
 .coffcanvas .body .crow .slider input[type="text"][inputmode="numeric"]:not(sketchystudio *){
     max-width: 30px;
     max-height: 15px;
+}
+.coffcanvas .body .crow .slider input[type="range"]:not(sketchystudio *){
+    width: 100%;
 }
 .coffcanvas .body .crow .secondary:not(sketchystudio *){
     line-height: 40px;
 }
 .coffcanvas .body .crow .element-info:not(sketchystudio *){
     font-size: 12px;
+}
+.coffcanvas .body .crow .element-info pre:not(sketchystudio *){
+    margin: 0;
+    color: var(--hover);
 }
 .coffcanvas .body .crow .grid:not(sketchystudio *){
     display: flex;
@@ -542,11 +567,14 @@ header .right .bi-list:not(sketchystudio *){
     width: 102px;
     height: 15px;
 }
-.coffcanvas .body .crow input:not(sketchystudio *),
+/* .coffcanvas .body .crow input:not(sketchystudio *),
 .coffcanvas .body .crow .grid:not(sketchystudio *),
-.coffcanvas .body .crow textarea:not(sketchystudio *){
+.coffcanvas .body .crow select:not(sketchystudio *){
     width: 100%;
 }
+.coffcanvas .body .crow textarea:not(sketchystudio *){
+    width: 100%;
+} */
 .notification:not(sketchystudio *){
     position: fixed;
     bottom: 25px;

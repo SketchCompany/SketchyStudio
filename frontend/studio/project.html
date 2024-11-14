@@ -38,39 +38,72 @@
             </div>
             <div class="body">
                 <div class="crow">
-                    <div>
-                        <div>
+                    <div class="crow-stack">
+                        <div class="crow-flex">
                             <p>Name:</p>
-                            <p id="tool-name"></p>
+                            <input id="tool-name" type="text" placeholder="h1, p, button, input, ...">
                         </div>
-                        <div class="element-info">
+                        <div class="crow-flex element-info">
                             <p>Element:</p>
-                            <p id="tool-element"></p>
+                            <pre id="tool-element">asda sdasd asd as d</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="crow fill">
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Text:</p>
+                            <textarea id="tool-content" placeholder="Inhalt des Elements..."></textarea>
+                        </div>
+                        <div class="crow-flex">
+                            <p>Ausrichtung:</p>
+                            <select id="tool-content-align">
+                                <option value="start">start (Standard)</option>
+                                <option value="center">center</option>
+                                <option value="end">end</option>
+                                <option value="justify">justify</option>
+                                <option value="left">left (Standard)</option>
+                                <option value="right">right</option>
+                                <option value="inherit">inherit</option>
+                                <option value="initial">initial</option>
+                                <option value="unset">unset</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="crow">
+                    <p>Schriftgröße:</p>
+                    <input id="tool-font-size" type="text" inputmode="numeric" placeholder="16px">
+                </div>
+                <div class="crow">
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Schriftfarbe:</p>
+                            <input id="tool-color" type="color">
+                        </div>
+                        <div class="crow-flex">
+                            <p>Transparenz:</p>
+                            <span class="slider">
+                                <input id="tool-color-transparancy-field" type="text" inputmode="numeric" placeholder="100">
+                                <input id="tool-color-transparancy-range" type="range" min="0" max="100" value="100">
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div class="crow">
-                    <p>Text:</p>
-                    <textarea id="tool-content" placeholder="Inhalt des Elements..."></textarea>
-                </div>
-                <div class="crow">
-                    <p>Schriftfarbe:<br><span class="secondary">Transparenz:</span></p>
-                    <div class="ccoulmn">
-                        <input id="tool-color" type="color">
-                        <span class="slider">
-                            <input id="tool-color-transparancy-field" type="text" inputmode="numeric">
-                            <input id="tool-color-transparancy-range" type="range" min="0" max="100" value="100">
-                        </span>
-                    </div>
-                </div>
-                <div class="crow">
-                    <p>Hintergrundfarbe:<br><span class="secondary">Transparenz:</span></p>
-                    <div class="ccoulmn">
-                        <input id="tool-background-color" type="color">
-                        <span class="slider">
-                            <input id="tool-background-color-transparancy-field"type="text" inputmode="numeric">
-                            <input id="tool-background-color-transparancy-range" type="range" min="0" max="100" value="100">
-                        </span>
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Hintergrundfarbe:</p>
+                            <input id="tool-background-color" type="color">
+                        </div>
+                        <div class="crow-flex">
+                            <p>Transparenz:</p>
+                            <span class="slider">
+                                <input id="tool-background-color-transparancy-field"type="text" inputmode="numeric" placeholder="100">
+                                <input id="tool-background-color-transparancy-range" type="range" min="0" max="100" value="100">
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="crow">
@@ -83,13 +116,18 @@
                     </div>
                 </div>
                 <div class="crow">
-                    <p>Rand Farbe:<br><span class="secondary">Transparenz:</span></p>
-                    <div class="ccoulmn">
-                        <input id="tool-border-color" type="color">
-                        <span class="slider">
-                            <input id="tool-border-color-transparancy-field" type="text" inputmode="numeric">
-                            <input id="tool-border-color-transparancy-range" type="range" min="0" max="100" value="100">
-                        </span>
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Rand Farbe:</p>
+                            <input id="tool-border-color" type="color">
+                        </div>
+                        <div class="crow-flex">
+                            <p>Transparenz:</p>
+                            <span class="slider">
+                                <input id="tool-border-color-transparancy-field" type="text" inputmode="numeric" placeholder="100">
+                                <input id="tool-border-color-transparancy-range" type="range" min="0" max="100" value="100">
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="crow">
@@ -100,6 +138,101 @@
                         <input id="tool-border-width-right" type="text" inputmode="numeric" placeholder="Rechts">
                         <input id="tool-border-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
                     </div>
+                </div>
+                <div class="crow">
+                    <p>Position:</p>
+                    <select id="tool-position">
+                        <option value="initial">initial (Standard)</option>
+                        <option value="absolute">absolute</option>
+                        <option value="fixed">fixed</option>
+                        <option value="relative">relative</option>
+                        <option value="static">static</option>
+                        <option value="-ms-page">-webkit-sticky</option>
+                        <option value="inherit">inherit</option>
+                        <option value="unset">unset</option>
+                    </select>
+                </div>
+                <div class="crow">
+                    <p>Anzeige:</p>
+                    <select id="tool-display">
+                        <!-- Grundlegende Display-Werte -->
+                        <option value="block">block (Standard)</option>
+                        <option value="inline">inline</option>
+                        <option value="inline-block">inline-block</option>
+                        <option value="none">none</option>
+                    
+                        <!-- Flexbox und Grid -->
+                        <option value="flex">flex</option>
+                        <option value="inline-flex">inline-flex</option>
+                        <option value="grid">grid</option>
+                        <option value="inline-grid">inline-grid</option>
+                    
+                        <!-- Positionierung von Listen -->
+                        <option value="list-item">list-item</option>
+                    
+                        <!-- Table und verwandte Werte -->
+                        <option value="table">table</option>
+                        <option value="table-row">table-row</option>
+                        <option value="table-cell">table-cell</option>
+                        <option value="table-column">table-column</option>
+                        <option value="table-column-group">table-column-group</option>
+                        <option value="table-row-group">table-row-group</option>
+                        <option value="table-header-group">table-header-group</option>
+                        <option value="table-footer-group">table-footer-group</option>
+                        <option value="table-caption">table-caption</option>
+                    
+                        <!-- Weitere Display-Werte -->
+                        <option value="inline-table">inline-table</option>
+                        <option value="run-in">run-in</option>
+                        <option value="contents">contents</option>
+                        <option value="none">none</option>
+                    
+                        <!-- Neue Werte für komplexe Layouts -->
+                        <option value="flow-root">flow-root</option>
+                        <option value="subgrid">subgrid</option> <!-- experimentell -->
+                        
+                        <!-- Multicontainer und -Overlay -->
+                        <option value="ruby">ruby</option>
+                        <option value="ruby-base">ruby-base</option>
+                        <option value="ruby-text">ruby-text</option>
+                        <option value="ruby-base-container">ruby-base-container</option>
+                        <option value="ruby-text-container">ruby-text-container</option>
+                    
+                        <!-- Verbundene Werte (z.B. für Web Components) -->
+                        <option value="revert">revert</option>
+                        <option value="inherit">inherit</option>
+                        <option value="initial">initial</option>
+                        <option value="unset">unset</option>
+                    </select>
+                </div>
+                <div class="crow">
+                    <p>Inhalt Ausrichten:<br><span class="element-info bi bi-info-circle"> (Anzeige: flex)</span></p>
+                    <select id="tool-justify-content">
+                        <option value="start">start (Standard)</option>
+                        <option value="end">end</option>
+                        <option value="left">left</option>
+                        <option value="right">right</option>
+                        <option value="flex-start">flex-start</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="center">center</option>
+                        <option value="space-between">space-between</option>
+                        <option value="space-around">space-around</option>
+                        <option value="space-evenly">space-evenly</option>
+                    </select>
+                </div>
+                <div class="crow">
+                    <p>Ausrichtung der Elemente:<br><span class="element-info bi bi-info-circle"> (Anzeige: flex)</span></p>
+                    <select id="tool-align-items">
+                        <option value="start">start (Standard)</option>
+                        <option value="end">end</option>
+                        <option value="center">center</option>
+                        <option value="stretch">stretch</option>
+                        <option value="flex-start">flex-start</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="baseline">baseline</option>
+                        <option value="self-start">self-start</option>
+                        <option value="self-end">self-end</option>
+                    </select>
                 </div>
             </div>
         </div>
