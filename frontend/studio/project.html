@@ -58,8 +58,8 @@
                     <div class="ccoulmn">
                         <input id="tool-color" type="color">
                         <span class="slider">
-                            <input type="text" inputmode="numeric">
-                            <input id="tool-color-transparancy" type="range" min="0" max="100" value="100">
+                            <input id="tool-color-transparancy-field" type="text" inputmode="numeric">
+                            <input id="tool-color-transparancy-range" type="range" min="0" max="100" value="100">
                         </span>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                     <div class="ccoulmn">
                         <input id="tool-background-color" type="color">
                         <span class="slider">
-                            <input type="text" inputmode="numeric">
-                            <input id="tool-background-color-transparancy" type="range" min="0" max="100" value="100">
+                            <input id="tool-background-color-transparancy-field"type="text" inputmode="numeric">
+                            <input id="tool-background-color-transparancy-range" type="range" min="0" max="100" value="100">
                         </span>
                     </div>
                 </div>
@@ -80,6 +80,25 @@
                         <input id="tool-padding-left" type="text" inputmode="numeric" placeholder="Links">
                         <input id="tool-padding-right" type="text" inputmode="numeric" placeholder="Rechts">
                         <input id="tool-padding-bottom" type="text" inputmode="numeric" placeholder="Unten">
+                    </div>
+                </div>
+                <div class="crow">
+                    <p>Rand Farbe:<br><span class="secondary">Transparenz:</span></p>
+                    <div class="ccoulmn">
+                        <input id="tool-border-color" type="color">
+                        <span class="slider">
+                            <input id="tool-border-color-transparancy-field" type="text" inputmode="numeric">
+                            <input id="tool-border-color-transparancy-range" type="range" min="0" max="100" value="100">
+                        </span>
+                    </div>
+                </div>
+                <div class="crow">
+                    <p>Rand Breite:</p>
+                    <div class="ccolumn grid">
+                        <input id="tool-border-width-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-border-width-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-border-width-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-border-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
                     </div>
                 </div>
             </div>
@@ -168,7 +187,7 @@
                 $("head").append($(document.createElement("style")).html(`
                     sketchystudio *:hover, sketchystudio *.active{
                         border-radius: 6px;
-                        ooutline: 1px solid springgreen;
+                        outline: 1px solid springgreen;
                         cursor: pointer;
                     }
                 `))
