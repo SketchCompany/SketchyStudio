@@ -24,17 +24,31 @@
     <!-- imports from project -->
 </head>
 <body class="default">
-    <sketchystudio>
+    <sketchystudio></sketchystudio>
+    <span ondblclick="sketchyStudio.toggleMenu()" class="menu-btn bi bi-arrow-bar-right"></span>
+    <div id="menu" class="coffcanvas" style="display: none;">
+        <div class="content">
+            <div class="top">
+                <div class="title">
+                    <span class="bi bi-sliders"></span>
+                    <h3>Menu</h3>
+                </div>
+                <span class="bi bi-arrow-bar-left" onclick="sketchyStudio.toggleMenu()"></span>
+            </div>
+            <div class="body">
 
-    </sketchystudio>
-    <div class="coffcanvas" style="display: none;">
+            </div>
+        </div>
+        <div class="background"></div>
+    </div>
+    <div id="tools" class="coffcanvas" style="display: none;">
         <div class="content">
             <div class="top">
                 <div class="title">
                     <span class="bi bi-wrench-adjustable"></span>
                     <h3>Tools</h3>
                 </div>
-                <span class="bi bi-arrow-bar-left" onclick="sketchyStudio.toggleOffcanvas()"></span>
+                <span class="bi bi-arrow-bar-left" onclick="sketchyStudio.toggleTools()"></span>
             </div>
             <div class="body">
                 <div class="crow">
@@ -52,29 +66,33 @@
                 <div class="crow">
                     <div class="crow-stack">
                         <div class="crow-flex fill">
-                            <p>Text:</p>
+                            <p>Inhalt:</p>
                             <textarea id="tool-content" placeholder="Inhalt des Elements..."></textarea>
                         </div>
-                        <div class="crow-flex">
-                            <p>Ausrichtung:</p>
-                            <select id="tool-content-align">
-                                <option value="start">start (Standard)</option>
-                                <option value="center">center</option>
-                                <option value="end">end</option>
-                                <option value="justify">justify</option>
-                                <option value="left">left (Standard)</option>
-                                <option value="right">right</option>
-                                <option value="inherit">inherit</option>
-                                <option value="initial">initial</option>
-                                <option value="unset">unset</option>
-                            </select>
-                        </div>
                     </div>
-                    
+                </div>
+                <h3>Element Aussehen</h3>
+                <div class="crow">
+                    <p>Text Ausrichtung:</p>
+                    <select id="tool-content-align">
+                        <option value="start">start (Standard)</option>
+                        <option value="center">center</option>
+                        <option value="end">end</option>
+                        <option value="justify">justify</option>
+                        <option value="left">left (Standard)</option>
+                        <option value="right">right</option>
+                        <option value="inherit">inherit</option>
+                        <option value="initial">initial</option>
+                        <option value="unset">unset</option>
+                    </select>
                 </div>
                 <div class="crow">
                     <p>Schriftgröße:</p>
                     <input id="tool-font-size" type="text" inputmode="numeric" placeholder="16px">
+                </div>
+                <div class="crow">
+                    <p>Schriftart:</p>
+                    <input id="tool-font-size" type="text" placeholder='"Open Sans", sans-serif'>
                 </div>
                 <div class="crow">
                     <div class="crow-stack">
@@ -116,6 +134,10 @@
                     </div>
                 </div>
                 <div class="crow">
+                    <p>Abrundung:</p>
+                    <input id="tool-border-radius" type="text" placeholder="6px">
+                </div>
+                <div class="crow">
                     <div class="crow-stack">
                         <div class="crow-flex">
                             <p>Rand Farbe:</p>
@@ -133,12 +155,78 @@
                 <div class="crow">
                     <p>Rand Breite:</p>
                     <div class="ccolumn grid">
-                        <input id="tool-border-width-top" type="text" inputmode="numeric" placeholder="Oben">
-                        <input id="tool-border-width-left" type="text" inputmode="numeric" placeholder="Links">
-                        <input id="tool-border-width-right" type="text" inputmode="numeric" placeholder="Rechts">
-                        <input id="tool-border-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
+                        <input id="tool-outline-width-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-outline-width-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-outline-width-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-outline-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
                     </div>
                 </div>
+                <div class="crow">
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Außenlinie Farbe:</p>
+                            <input id="tool-outline-color" type="color">
+                        </div>
+                        <div class="crow-flex">
+                            <p>Transparenz:</p>
+                            <span class="slider">
+                                <input id="tool-outline-color-transparancy-field" type="text" inputmode="numeric" placeholder="100">
+                                <input id="tool-outline-color-transparancy-range" type="range" min="0" max="100" value="100">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="crow">
+                    <p>Außenlinie Breite:</p>
+                    <div class="ccolumn grid">
+                        <input id="tool-outline-width-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-outline-width-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-outline-width-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-outline-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
+                    </div>
+                </div>
+                <div class="crow">
+                    <div class="crow-stack">
+                        <div class="crow-flex">
+                            <p>Überstand:</p>
+                            <select id="tool-overflow">
+                                <option value="initial">initial (Standard)</option>
+                                <option value="hidden">hidden</option>
+                                <option value="visible">visible</option>
+                                <option value="scroll">scroll</option>
+                                <option value="auto">auto</option>
+                                <option value="-moz-hidden-unscrollable">-moz-hidden-unscrollable</option>
+                                <option value="inherit">inherit</option>
+                                <option value="unset">unset</option>
+                            </select>
+                        </div>
+                        <div class="crow-flex">
+                            <p>Überstand X-Achse:</p>
+                            <select id="tool-overflow-x">
+                                <option value="initial">initial (Standard)</option>
+                                <option value="hidden">hidden</option>
+                                <option value="visible">visible</option>
+                                <option value="scroll">scroll</option>
+                                <option value="auto">auto</option>
+                                <option value="inherit">inherit</option>
+                                <option value="unset">unset</option>
+                            </select>
+                        </div>
+                        <div class="crow-flex">
+                            <p>Überstand Y-Achse:</p>
+                            <select id="tool-overflow-y">
+                                <option value="initial">initial (Standard)</option>
+                                <option value="hidden">hidden</option>
+                                <option value="visible">visible</option>
+                                <option value="scroll">scroll</option>
+                                <option value="auto">auto</option>
+                                <option value="inherit">inherit</option>
+                                <option value="unset">unset</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3>Element Ausrichtung</h3>
                 <div class="crow">
                     <p>Position:</p>
                     <select id="tool-position">
@@ -151,6 +239,15 @@
                         <option value="inherit">inherit</option>
                         <option value="unset">unset</option>
                     </select>
+                </div>
+                <div class="crow">
+                    <p>Koordinaten:<br><span class="element-info bi bi-info-circle"> (Position: absolute)</span></p>
+                    <div class="ccolumn grid">
+                        <input id="tool-pos-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-pos-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-pos-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-pos-bottom" type="text" inputmode="numeric" placeholder="Unten">
+                    </div>
                 </div>
                 <div class="crow">
                     <p>Anzeige:</p>
@@ -234,13 +331,61 @@
                         <option value="self-end">self-end</option>
                     </select>
                 </div>
+                <div class="crow">
+                    <p>Abstand:</p>
+                    <div class="ccolumn grid">
+                        <input id="tool-margin-width-top" type="text" inputmode="numeric" placeholder="Oben">
+                        <input id="tool-margin-width-left" type="text" inputmode="numeric" placeholder="Links">
+                        <input id="tool-margin-width-right" type="text" inputmode="numeric" placeholder="Rechts">
+                        <input id="tool-margin-width-bottom" type="text" inputmode="numeric" placeholder="Unten">
+                    </div>
+                </div>
+                <h3>Element Größe</h3>
+                <div class="crow">
+                    <p>Breite:</p>
+                    <input id="tool-width" type="text" inputmode="numeric" placeholder="100px">
+                </div>
+                <div class="crow">
+                    <p>Höhe:</p>
+                    <input id="tool-height" type="text" inputmode="numeric" placeholder="100px">
+                </div>
+                <div class="crow">
+                    <p>Minimum Breite:</p>
+                    <input id="tool-min-width" type="text" inputmode="numeric" placeholder="100px">
+                </div>
+                <div class="crow">
+                    <p>Minimum Höhe:</p>
+                    <input id="tool-min-height" type="text" inputmode="numeric" placeholder="100px">
+                </div>
+                <div class="crow">
+                    <p>Maximum Breite:</p>
+                    <input id="tool-max-width" type="text" inputmode="numeric" placeholder="100px">
+                </div>
+                <div class="crow">
+                    <p>Maximum Höhe:</p>
+                    <input id="tool-max-height" type="text" inputmode="numeric" placeholder="100px">
+                </div>
             </div>
         </div>
         <div class="background"></div>
     </div>
     <script src="/res?f=studio.js"></script>
     <script>
-        const sketchyStudio = new SketchyStudio()
+        // 
+        //  !!! DISCLAIMER !!!
+        // 
+        //  Copying the website code is a criminal offense and will be prosecuted. The copyright 
+        //  of this website lies with Maximilian Baer in accordance with § 106 of the German Copyright 
+        //  Act (UrhG) and in accordance with International Copyright Law Article 27, Paragraph 2 of the 
+        //  Universal Declaration of Human Rights.
+        // 
+        //  If you want to access the functionalites of Sketchy Studio, you can use the sketchyStudio.publicAPI [NOT WORKING YET]
+        //       
+            const sketchyStudio = new SketchyStudio() // using this, the Sketchy Studio Framework is set up
+        //
+        //
+        //
+        //
         const paths = location.pathname.replace("/", "").split("/")
         console.log("paths", paths)
         const projectName = decodeURI(paths[2 - 1])
@@ -248,6 +393,19 @@
         const projectUrl = "/b/project/" + projectName
         let loaded = false
         const dialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
+
+        sketchyStudio.dragElement($(".menu-btn").get(0))
+        sketchyStudio.createCtxMenu(".menu-btn", "menuBtn", `
+            <button>Zurücksetzten</button>
+        `, sketchyStudio.menuBtnCtxMenu)
+        window.onkeypress = function(e){
+            if(e.key.toUpperCase() == "M"){
+                sketchyStudio.toggleMenu()
+            }
+            if(e.key.toUpperCase() == "T"){
+                sketchyStudio.toggleTools()
+            }
+        }
 
         $(document).ready(async function(){
             let lastProject = localStorage.getItem("lastProject")
@@ -265,8 +423,80 @@
                     $("body").removeClass("default")
                     sketchyStudio.removeDialog(dialog)
                     loaded = true
+                    $("head").append($(document.createElement("style")).html(`
+                        sketchystudio *:hover, sketchystudio *.active{
+                            border-radius: 2px;
+                            outline: 1px solid springgreen;
+                            cursor: pointer;
+                        }
+                    `))
+
+                    $("sketchystudio").children().each(function(i, element){
+                        if($(element).attr("listener")) return
+                        $(element).attr("listener", "true")
+                        $(element).click(() => sketchyStudio.elementClicked(element))
+                    })
                 }
             }
+
+            setTimeout(async function(){
+                if(Math.floor(Date.now() - localStorage.getItem("lastCall")) >= 1000){
+                    localStorage.setItem("lastCall", Date.now())
+                    // let altDialog 
+                    // const lazyTimeout = setTimeout(function(){
+                    //     altDialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
+                    // }, 100)
+                    let html = await sketchyStudio.authGet(projectUrl + "/files?name=index.html", true)
+                    let css = await sketchyStudio.authGet(projectUrl + "/files?name=index.css", true)
+                    // clearTimeout(lazyTimeout)
+                    // if(altDialog) sketchyStudio.removeDialog(altDialog)
+                    if(html.status == 0){
+                        sketchyStudio.notify("Fehlgeschlagen", html.err, "error", 10000)
+                        console.error(html.err)
+                        sketchyStudio.removeDialog(dialog)
+                        const dialog2 = sketchyStudio.createDialog("Laden Fehlgeschlagen", "Das laden des Projektes ist fehlgeschlagen, aufgrund folgendes Fehlers:", `<p class="bold">${html.err}</p>`, "error", 450)
+                        $(dialog2 + "-cancel").click(function(){
+                            sketchyStudio.openSite("/studio")
+                        })
+                        return
+                    }
+                    else{
+                        html = html.data
+                        css = css.data
+                        if(!loaded){
+                            const placeholder = new DOMParser().parseFromString(html, "text/html")
+                            console.log(placeholder)
+                            document.title = placeholder.querySelector("title").innerHTML + " | Sketchy Studio"
+                            $("html").attr("lang", placeholder.querySelector("html").getAttribute("lang"))
+                            $("head").append(placeholder.querySelector("head").innerHTML)
+                            $("sketchystudio").append(placeholder.querySelector("body").innerHTML)
+                            if(css.status == 0) sketchyStudio.notify("Fehlgeschlagen", css, "error", 10000)
+                            else $("head").append($(document.createElement("style")).html(css))
+
+                            $("head").append($(document.createElement("style")).html(`
+                                sketchystudio *:hover, sketchystudio *.active{
+                                    border-radius: 2px;
+                                    outline: 1px solid springgreen;
+                                    cursor: pointer;
+                                }
+                            `))
+                            $("sketchystudio").children().each(function(i, element){
+                                if($(element).attr("listener")) return
+                                $(element).attr("listener", "true")
+                                $(element).click(() => sketchyStudio.elementClicked(element))
+                            })
+                        }
+                        $("body").removeClass("default")
+                        sketchyStudio.removeDialog(dialog)
+
+                        localStorage.setItem("lastProject", JSON.stringify({name: projectName, html, css}))
+                        console.log("updated project in localStorage")
+                    }
+                }
+                else{
+                    sketchyStudio.notify("Abgebrochen", "Es wurden keine neuen Projekt Daten geladen, da zu viele Anfragen gestellt worden sind.", "warning", 10000)
+                }
+            }, 1000)
 
             if(sketchyStudio.isMobile()){
                 const style = $(document.createElement("style"))
@@ -276,63 +506,6 @@
                 $("head").append(style)
             }
         })
-
-        window.onload = async function(){
-            if(Math.floor(Date.now() - localStorage.getItem("lastCall")) >= 2000){
-                localStorage.setItem("lastCall", Date.now())
-                let altDialog 
-                const lazyTimeout = setTimeout(function(){
-                    altDialog = sketchyStudio.createDialog("Lädt", "Das Projekt wird geladen...", ``)
-                }, 100)
-                let html = await sketchyStudio.authGet(projectUrl + "/files?name=index.html", true)
-                let css = await sketchyStudio.authGet(projectUrl + "/files?name=index.css", true)
-                clearTimeout(lazyTimeout)
-                if(altDialog) sketchyStudio.removeDialog(altDialog)
-                if(html.status == 0){
-                    sketchyStudio.notify("Fehlgeschlagen", html.err, "error", 10000)
-                    console.error(html.err)
-                    sketchyStudio.removeDialog(dialog)
-                    const dialog2 = sketchyStudio.createDialog("Laden Fehlgeschlagen", "Das laden des Projektes ist fehlgeschlagen, aufgrund folgendes Fehlers:", `<p class="bold">${html.err}</p>`, "error", 450)
-                    $(dialog2 + "-cancel").click(function(){
-                        sketchyStudio.openSite("/studio")
-                    })
-                    return
-                }
-                else{
-                    html = html.data
-                    css = css.data
-                    if(!loaded){
-                        const placeholder = new DOMParser().parseFromString(html, "text/html")
-                        console.log(placeholder)
-                        document.title = placeholder.querySelector("title").innerHTML + " | Sketchy Studio"
-                        $("html").attr("lang", placeholder.querySelector("html").getAttribute("lang"))
-                        $("head").append(placeholder.querySelector("head").innerHTML)
-                        $("sketchystudio").append(placeholder.querySelector("body").innerHTML)
-                        if(css.status == 0) sketchyStudio.notify("Fehlgeschlagen", css, "error", 10000)
-                        else $("head").append($(document.createElement("style")).html(css))
-                    }
-                    $("body").removeClass("default")
-                    sketchyStudio.removeDialog(dialog)
-
-                    localStorage.setItem("lastProject", JSON.stringify({name: projectName, html, css}))
-                    console.log("updated project in localStorage")
-                }
-                $("head").append($(document.createElement("style")).html(`
-                    sketchystudio *:hover, sketchystudio *.active{
-                        border-radius: 6px;
-                        outline: 1px solid springgreen;
-                        cursor: pointer;
-                    }
-                `))
-            }
-            else{
-                sketchyStudio.notify("Abgebrochen", "Es wurden keine neuen Projekt Daten geladen, da zu viele Anfragen gestellt worden sind.", "warning", 10000)
-            }
-
-            $("sketchystudio").children().each(function(i, element){
-                $(element).click(() => sketchyStudio.elementClicked(element))
-            })
-        }
     </script>
 </body>
 </html>

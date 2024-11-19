@@ -1,6 +1,6 @@
+let clicked = null
 class SketchyStudio{
     constructor(){
-
     }
     /**
      * checks if the website is loaded on the desktop or on a mobile device
@@ -334,17 +334,26 @@ class SketchyStudio{
             element.attr("checked")
         }
     }
-    toggleOffcanvas(){
-        if($(".coffcanvas").css("display") == "none"){
-            $(".coffcanvas").css("display", "flex")
+    toggleTools(){
+        if($("#tools").css("display") == "none"){
+            $("#tools").css("display", "flex")
             this.disableScroll()
         }
         else{
-            $(".coffcanvas").css("display", "none")
+            $("#tools").css("display", "none")
             this.enableScroll()
         }
     }
-    clicked
+    toggleMenu(){
+        if($("#menu").css("display") == "none"){
+            $("#menu").css("display", "flex")
+            this.disableScroll()
+        }
+        else{
+            $("#menu").css("display", "none")
+            this.enableScroll()
+        }
+    }
     /**
      * 
      * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
@@ -390,8 +399,8 @@ class SketchyStudio{
 
             const {clientX: mouseX, clientY: mouseY} = e
 
-            $("#" + id + "-ctx-menu").css("top", mouseY - 20 + "px")
-            $("#" + id + "-ctx-menu").css("left", mouseX - 20 + "px")
+            $("#" + id + "-ctx-menu").css("top", mouseY + "px")
+            $("#" + id + "-ctx-menu").css("left", mouseX + 10 + "px")
             $("#" + id + "-ctx-menu").css("display", "block")
             clicked = e.target
         })
@@ -436,7 +445,60 @@ class SketchyStudio{
     }
 
     openTools(){
-        $(".coffcanvas").css("display", "flex")
+        $("#tools").css("display", "flex")
         this.disableScroll()
     }
+    
+    openMenu(){
+        $("#menu").css("display", "flex")
+        this.disableScroll()
+    }
+
+    dragElement(elmnt){
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+        if (document.getElementById(elmnt.id + "header")) {
+          // if present, the header is where you move the DIV from:
+          document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown
+        } else {
+          // otherwise, move the DIV from anywhere inside the DIV:
+          elmnt.onmousedown = dragMouseDown
+        }
+      
+        function dragMouseDown(e) {
+          e = e || window.event
+          e.preventDefault()
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag
+        }
+      
+        function elementDrag(e) {
+          e = e || window.event
+          e.preventDefault()
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX
+          pos2 = pos4 - e.clientY
+          pos3 = e.clientX
+          pos4 = e.clientY
+          // set the element's new position:
+          elmnt.style.top = (elmnt.offsetTop - pos2) + "px"
+          //elmnt.style.left = (elmnt.offsetLeft - pos1) + "px"
+        }
+      
+        function closeDragElement() {
+          // stop moving when mouse button is released:
+          document.onmouseup = null
+          document.onmousemove = null
+        }
+    }
+
+    menuBtnCtxMenu(index, element){
+        if(index == 0){
+            $(element).css("top", "10px")
+        }
+    }
+      
 }

@@ -40,7 +40,9 @@ html:not(sketchystudio *){
     background-color: var(--b3);
     cursor: pointer;
 }
-textarea:not(sketchystudio *)::-webkit-scrollbar, textarea:not(sketchystudio *)::-webkit-scrollbar-track, textarea:not(sketchystudio *)::-webkit-scrollbar-thumb{
+textarea:not(sketchystudio *)::-webkit-scrollbar, textarea:not(sketchystudio *)::-webkit-scrollbar-track, textarea:not(sketchystudio *)::-webkit-scrollbar-thumb,
+.coffcanvas .content:not(sketchystudio *)::-webkit-scrollbar, .coffcanvas .content:not(sketchystudio *)::-webkit-scrollbar-track, .coffcanvas .content:not(sketchystudio *)::-webkit-scrollbar-thumb
+{
     width: 10px;
 }
 .default:not(sketchystudio *){
@@ -345,7 +347,7 @@ header .left .title:not(sketchystudio *){
 }
 header .left .title p:not(sketchystudio *){
     margin: 0;
-    font-size: inherit;
+    font-size: 16px;
     color: var(--f0);
 }
 header .left .title:hover:not(sketchystudio *), header .right .bi-list:hover:not(sketchystudio *){
@@ -471,7 +473,7 @@ header .right .bi-list:not(sketchystudio *){
     height: 100%;
     width: 100%;
     position: fixed;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.5);
 }
 .coffcanvas .top:not(sketchystudio *){
     display: flex;
@@ -486,7 +488,7 @@ header .right .bi-list:not(sketchystudio *){
 .coffcanvas .top .title h3:not(sketchystudio *){
     margin: 0;
 }
-.coffcanvas .top .title .bi-wrench-adjustable:not(sketchystudio *){
+.coffcanvas .top .title .bi:not(sketchystudio *){
     margin-right: 10px;
     font-size: 20px;
 }
@@ -524,6 +526,9 @@ header .right .bi-list:not(sketchystudio *){
     display: flex;
     justify-content: space-between;
     overflow-x: hidden;
+}
+.coffcanvas .body .crow .crow-stack .crow-flex select:not(sketchystudio *){
+    width: 100%;
 }
 .coffcanvas .body .crow .ccoulmn:not(sketchystudio *){
     display: flex;
@@ -576,14 +581,10 @@ header .right .bi-list:not(sketchystudio *){
     width: 100px;
     height: 30px;
 }
-/* .coffcanvas .body .crow input:not(sketchystudio *),
-.coffcanvas .body .crow .grid:not(sketchystudio *),
-.coffcanvas .body .crow select:not(sketchystudio *){
-    width: 100%;
+.coffcanvas .body h3{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-.coffcanvas .body .crow textarea:not(sketchystudio *){
-    width: 100%;
-} */
 .notification:not(sketchystudio *){
     position: fixed;
     bottom: 25px;
@@ -706,6 +707,8 @@ header .right .bi-list:not(sketchystudio *){
     transition: all 100ms;
     width: 100%;
     text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
 }
 .context-menu div:hover:not(sketchystudio *), .context-menu button:hover:not(sketchystudio *){
     background-color: var(--b3);
@@ -714,4 +717,22 @@ header .right .bi-list:not(sketchystudio *){
 }
 .lastItem:not(sketchystudio *){
     border-width: 0 !important;
+}
+.menu-btn:not(sketchystudio *){
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(100,100,105,0.5);
+    padding: 0 5px;
+    font-size: 25px;
+    border-radius: 6px;
+    color: white;
+    z-index: 999;
+}
+.menu-btn:hover:not(sketchystudio *){
+    cursor: s-resize;
+    background-color: var(--b2);
+}
+.menu-btn *:not(sketchystudio *){
+    pointer-events: none;
 }
