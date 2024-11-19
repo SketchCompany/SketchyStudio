@@ -334,26 +334,6 @@ class SketchyStudio{
             element.attr("checked")
         }
     }
-    toggleTools(){
-        if($("#tools").css("display") == "none"){
-            $("#tools").css("display", "flex")
-            this.disableScroll()
-        }
-        else{
-            $("#tools").css("display", "none")
-            this.enableScroll()
-        }
-    }
-    toggleMenu(){
-        if($("#menu").css("display") == "none"){
-            $("#menu").css("display", "flex")
-            this.disableScroll()
-        }
-        else{
-            $("#menu").css("display", "none")
-            this.enableScroll()
-        }
-    }
     /**
      * 
      * @param {string} name the selector for the context menu, so its open when the element with the same name (selector) got right clicked
@@ -444,13 +424,39 @@ class SketchyStudio{
         this.openTools()
     }
 
+    toggleTools(){
+        if($("#tools").css("display") == "none"){
+            $("#tools").css("display", "flex")
+            $("#menu").css("display", "none")
+            this.disableScroll()
+        }
+        else{
+            $("#tools").css("display", "none")
+            this.enableScroll()
+        }
+    }
+
+    toggleMenu(){
+        if($("#menu").css("display") == "none"){
+            $("#menu").css("display", "flex")
+            $("#tools").css("display", "none")
+            this.disableScroll()
+        }
+        else{
+            $("#menu").css("display", "none")
+            this.enableScroll()
+        }
+    }
+
     openTools(){
         $("#tools").css("display", "flex")
+        $("#menu").css("display", "none")
         this.disableScroll()
     }
     
     openMenu(){
         $("#menu").css("display", "flex")
+        $("#tools").css("display", "none")
         this.disableScroll()
     }
 

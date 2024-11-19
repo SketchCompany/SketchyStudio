@@ -398,7 +398,7 @@
         sketchyStudio.createCtxMenu(".menu-btn", "menuBtn", `
             <button>Zurücksetzten</button>
         `, sketchyStudio.menuBtnCtxMenu)
-        window.onkeypress = function(e){
+        window.onkeydown = function(e){
             if(e.key.toUpperCase() == "M"){
                 sketchyStudio.toggleMenu()
             }
