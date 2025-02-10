@@ -7,7 +7,7 @@
     <meta name="publisher" content="Sketch Company">
     <meta name="copyright" content="Sketch Company">
     <meta name="description" content="Sketchy Studio ist ein kostenloser Website-Baukasten, der jedem zur Verfügung steht. Du solltest ein wenig Erfahrung im Webdesign und HTML-Vorwissen besitzen um richtig durchstarten zu können. Ansonsten kannst du das Tool auch ohne Web Kenntnisse benutzen">
-    <meta name="keywords" content="Sketchy, Studio, Sketch, Company, Kostenloser, Website, Baukasten, Sketchy, Games, ">
+    <meta name="keywords" content="Sketchy, Studio, Sketch, Company, Kostenloser, Website, Baukasten, Sketchy, Games">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,16 +21,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
-    <!-- custom resources -->
-    <title>Ein kostenloser Website Baukasten zum erstellen von Websites | Sketchy Studio</title>
-    <link rel="stylesheet" href="/res?f=css/body.css">
-    <link rel="stylesheet" href="/res?f=css/start.css">
-
-    <!-- spline -->
+    <!-- Spline -->
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://prod.spline.design">
     <link rel="preconnect" href="https://unpkg.com">
     <link rel="preconnect" href="https://prod.spline.design">
+        
+    <!-- Resources -->
+    <title>Ein kostenloser Website Baukasten zum erstellen von Websites | Sketchy Studio</title>
+    <script defer src="/res?f=app.js"></script>
+    <link rel="stylesheet" href="/res?f=css/body.css">
+    <link rel="stylesheet" href="/res?f=css/start.css">
 </head>
 <body>
     <main>
@@ -70,7 +71,7 @@
                     eigenen Website vorerst verworfen. Bis zu dem Zeitpunkt, an dem ich Programmieren gelernt habe und mir dann gedacht habe: "Warum nicht
                     selbst einen Website-Baukasten programmieren?", und somit entstand Sketchy Studio.
                     Bei der Sketch Company programmiere ich auch Indie-Spiele und habe dafür schon meinen eigenen Launcher, 
-                    den <a href="https://sketchy-games.sketch-company.de/launcher">Sketchy Games Launcher</a> entwickelt, 
+                    den <a href="https://sketchy-games.sketch-company.de/launcher">Sketchy Games Launcher</a>, entwickelt, 
                     den ihr auf meiner Website <a href="https://sketchy-games.sketch-company.de">Sketchy Games</a> herunterladen könnt.
                 </p>
             </div>
@@ -85,7 +86,6 @@
         </div>
     </main>
 
-    <script src="/res?f=app.js"></script>
     <script>
         if(isMobile()){
             const style = $(document.createElement("style"))

@@ -4,6 +4,8 @@ import fs from "fs"
 import path from 'path'
 import { fileURLToPath } from 'url'
 import Studio from "./studio.mjs"
+import dotenv from "dotenv"
+dotenv.config()
 
 const studio = new Studio()
 const router = express.Router()
@@ -12,7 +14,7 @@ router.use(express.json())
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const BASE_DIR = __dirname + "/frontend/"
-const SECRET_KEY = "V?akYlDw!B|?-K3Gm6(;oE8VyH',*U'dMzzHvO91Mpz8kHfEWQCqIZWTEJWu99BEV)8Q}[:}z(sHWN;4E.lqEZIVE{A_Up~4"
+const SECRET_KEY = process.env.TOKEN_ENCRYPTION_KEY
 
 const authenticate = async (req, res, next) => {
     try{

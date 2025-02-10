@@ -5,7 +5,7 @@ import NodeCache from "node-cache"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const chache = new NodeCache({stdTTL: 30, checkperiod: 1})
+const cache = new NodeCache({stdTTL: 30, checkperiod: 1})
 const BASE_DIR = __dirname + "/"
 const PROFILES_DIR = BASE_DIR + "/profiles/"
 
@@ -96,7 +96,7 @@ export default class Functions{
                         <!-- Sketchy Studio -->
                         <link rel="author" title="${userData.user}">
                         <link rel="preconnect" href="https://studio.sketch-company.de">
-                        <link rel="stylesheet" href="https://studio.sketch-company.de/api/${userData.id}/${args.name}/files?name=index.css">
+                        <link rel="stylesheet" href="https://localhost:3500/api/${userData.id}/${args.name}/files?name=index.css"> <!-- studio.sketch-company.de on production -->
 
                         <title>${args.name} - ${userData.user}</title>
                     </head>
@@ -113,6 +113,7 @@ export default class Functions{
                 userData.studio = JSON.stringify(studioData)
                 const updateResponse = await send("https://api.sketch-company.de/u/update", userData)
                 console.log("createProject: updated account")
+                cache.del(userData.id)
                 cb()
             }
             catch(err){
@@ -214,7 +215,7 @@ export default class Functions{
                 userData.studio = JSON.stringify(studioData)
                 const updateResponse = await send("https://api.sketch-company.de/u/update", userData)
                 console.log("createProject: updated account")
-                
+                cache.del(userData.id)
                 cb()
             }
             catch(err){
@@ -246,10 +247,10 @@ export default class Functions{
     userData(identifierObject){
         return new Promise(async cb => {
             try{
-                if(chache.has(identifierObject.id)){
-                    const userData = chache.get(identifierObject.id)
+                if(cache.has(identifierObject.id)){
+                    const userData = cache.get(identifierObject.id)
                     if(!userData.studio) userData.studio = "[]"
-                    console.log("userData: from chache for", identifierObject)
+                    console.log("userData: from cache for", identifierObject)
                     cb(userData)
                 }
                 else{
@@ -260,9 +261,9 @@ export default class Functions{
                     delete userData.games
                     delete userData.recordId
                     if(!userData.studio) userData.studio = "[]"
-                    chache.set(userData.id, userData)
+                    cache.set(userData.id, userData)
                     console.log("userData: from api for", identifierObject)
-                    console.log("userData: updated chache", chache.data)
+                    console.log("userData: updated cache", cache.data)
                     cb(userData)
                 }
             }

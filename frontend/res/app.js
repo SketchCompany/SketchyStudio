@@ -21,13 +21,16 @@ window.isValid = function(){
 $(document).ready(async function(){
     // check if token is valid
     const token = localStorage.getItem("token")
-    const auth = await send("https://api.sketch-company.de/backend/auth", {token})
-    if(auth.status == 0){
-        console.error("❌ token is not valid")
-        localStorage.removeItem("token")
-        openSite("/login?r=/studio")
+    if(token){
+        const auth = await send("https://api.sketch-company.de/backend/auth", {token})
+        if(auth.status == 0){
+            console.error("❌ token is not valid")
+            localStorage.removeItem("token")
+            openSite("/login?r=/" + location.pathname)
+        }
+        else console.log("✅ token is valid")
     }
-    else console.log("✅ token is valid")
+    else console.log("❌ no token found")
 
     $("body").prepend(`
         <header>

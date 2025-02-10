@@ -722,7 +722,7 @@ header .right .bi-list:not(sketchystudio *){
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(100,100,105,0.5);
+    background-color: rgba(100,100,105,0.6);
     padding: 0 5px;
     font-size: 25px;
     border-radius: 6px;
